@@ -50,49 +50,28 @@
     </a>
 
     <!-- Lookups -->
-    <div class="px-2 pt-4 pb-2 mt-2 text-xs font-semibold uppercase tracking-wider text-slate-500 border-t border-slate-100">Lookups</div>
-
-    <a data-route="#/lookups/categories" class="nav-item">
-      <i data-lucide="layers"></i><span>Categories & Classes</span>
-    </a>
-    <a data-route="#/lookups/conditions" class="nav-item">
-      <i data-lucide="thermometer"></i><span>Conditions</span>
-    </a>
-    <a data-route="#/lookups/statuses" class="nav-item">
-      <i data-lucide="list-checks"></i><span>Statuses</span>
-    </a>
-    <a data-route="#/lookups/dep-methods" class="nav-item">
-      <i data-lucide="calculator"></i><span>Depreciation Methods</span>
-    </a>
-
-    <a data-route="#/lookups/branch" class="nav-item">
-      <i data-lucide="map-pin"></i><span>Branch / Site</span>
-    </a>
-    <a data-route="#/lookups/building" class="nav-item">
-      <i data-lucide="building-2"></i><span>Building / Floor / Room</span>
-    </a>
-
-    <a data-route="#/lookups/departments" class="nav-item">
-      <i data-lucide="users"></i><span>Departments</span>
-    </a>
-    <a data-route="#/lookups/cost-centers" class="nav-item">
-      <i data-lucide="wallet-cards"></i><span>Cost Centers / Projects</span>
-    </a>
-    <a data-route="#/lookups/funding" class="nav-item">
-      <i data-lucide="hand-coins"></i><span>Funding Sources</span>
-    </a>
-
-    <a data-route="#/lookups/suppliers" class="nav-item">
-      <i data-lucide="factory"></i><span>Suppliers</span>
-    </a>
-    <a data-route="#/lookups/warranty" class="nav-item">
-      <i data-lucide="badge-check"></i><span>Warranty Types</span>
-    </a>
-    <a data-route="#/lookups/disposal" class="nav-item">
-      <i data-lucide="trash-2"></i><span>Disposal Methods</span>
-    </a>
-    <a data-route="#/lookups/maint-types" class="nav-item">
-      <i data-lucide="wrench"></i><span>Maintenance Types</span>
-    </a>
+    <div class="group">
+      <button class="nav-item justify-between w-full" aria-expanded="false" aria-controls="lookups-submenu">
+        <span class="inline-flex items-center gap-2">
+          <i data-lucide="database" aria-hidden="true"></i><span>Lookups</span>
+        </span>
+        <i class="chev" data-lucide="chevron-down" aria-hidden="true"></i>
+      </button>
+      <div id="lookups-submenu" class="ml-9 mt-1 space-y-1 hidden group-[.open]:block" role="menu">
+        <a data-route="#/lookups/categories" class="sub-item" role="menuitem">Categories & Classes</a>
+        <a data-route="#/lookups/conditions" class="sub-item" role="menuitem">Conditions</a>
+        <a data-route="#/lookups/statuses" class="sub-item" role="menuitem">Statuses</a>
+        <a data-route="#/lookups/dep-methods" class="sub-item" role="menuitem">Depreciation Methods</a>
+        <a data-route="#/lookups/branch" class="sub-item" role="menuitem">Branch / Site</a>
+        <a data-route="#/lookups/building" class="sub-item" role="menuitem">Building / Floor / Room</a>
+        <a data-route="#/lookups/departments" class="sub-item" role="menuitem">Departments</a>
+        <a data-route="#/lookups/cost-centers" class="sub-item" role="menuitem">Cost Centers / Projects</a>
+        <a data-route="#/lookups/funding" class="sub-item" role="menuitem">Funding Sources</a>
+        <a data-route="#/lookups/suppliers" class="sub-item" role="menuitem">Suppliers</a>
+        <a data-route="#/lookups/warranty" class="sub-item" role="menuitem">Warranty Types</a>
+        <a data-route="#/lookups/disposal" class="sub-item" role="menuitem">Disposal Methods</a>
+        <a data-route="#/lookups/maint-types" class="sub-item" role="menuitem">Maintenance Types</a>
+      </div>
+    </div>
   </nav>
 </aside>

@@ -1123,28 +1123,105 @@ const routes = {
     </div>
   `),
   
-  '#/assignments': () => Page('Assignments', `
+  '#/assignments': () => Page('Asset Assignments', `
     <div class="space-y-6">
-      <p class="text-slate-600">Transfer assets between departments or employees and view assignment history.</p>
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-xl font-bold text-primary-800">Asset Assignment Management</h2>
+          <p class="text-slate-600 mt-1">Transfer assets between departments or employees and track assignment history.</p>
+        </div>
+        
+        <div class="flex items-center gap-2 rounded-xl border bg-white px-3 py-1.5 shadow-sm">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+          <input placeholder="Search assignments..." class="outline-none text-sm w-56" />
+        </div>
+      </div>
       
-      <div class="bg-primary-50 rounded-xl p-4 border border-primary-100">
-        <h3 class="font-semibold mb-3 text-primary-800">Transfer Wizard</h3>
-        <div class="grid md:grid-cols-3 gap-4">
-          <div>
-            ${selectField('Asset', ['Select asset...', 'Dell Latitude 7420', 'iPhone 13 Pro', 'Projector Sony VPL'])}
+      <!-- Status Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-xs text-slate-500">Total Assignments</div>
+              <div class="text-xl font-semibold">248</div>
+            </div>
+            <div class="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+              <i data-lucide="user-check"></i>
+            </div>
           </div>
-          <div>
-            ${selectField('Transfer To', ['Select recipient...', 'IT Department', 'Marketing', 'John Smith', 'Sarah Johnson'])}
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-xs text-slate-500">Active Assignments</div>
+              <div class="text-xl font-semibold">186</div>
+            </div>
+            <div class="h-10 w-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+              <i data-lucide="check-circle"></i>
+            </div>
           </div>
-          <div class="flex items-end">
-            <button class="btn-primary">Start Transfer</button>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-xs text-slate-500">Pending Transfers</div>
+              <div class="text-xl font-semibold">12</div>
+            </div>
+            <div class="h-10 w-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+              <i data-lucide="clock"></i>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-xs text-slate-500">Unassigned Assets</div>
+              <div class="text-xl font-semibold">43</div>
+            </div>
+            <div class="h-10 w-10 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600">
+              <i data-lucide="package"></i>
+            </div>
           </div>
         </div>
       </div>
       
-      <div>
-        <h3 class="font-semibold mb-3">Recent Transfers</h3>
-        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft">
+        <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+          <i data-lucide="repeat" class="w-5 h-5"></i>
+          Transfer Wizard
+        </h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Asset</label>
+            ${selectField('', ['Select asset...', 'Dell Latitude 7420', 'iPhone 13 Pro', 'Projector Sony VPL', 'HP LaserJet Printer'])}
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Transfer To</label>
+            ${selectField('', ['Select recipient...', 'IT Department', 'Marketing', 'Finance', 'John Smith', 'Sarah Johnson'])}
+          </div>
+          <div class="flex items-end">
+            <button class="btn-primary w-full">
+              <i data-lucide="arrow-right" class="w-4 h-4 mr-1"></i>
+              Start Transfer
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-soft">
+        <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+          <div class="font-medium">Recent Transfers</div>
+          <div class="flex items-center gap-2">
+            <select class="rounded-lg border-slate-300 focus:border-primary focus:ring-primary text-sm">
+              <option>All Transfers</option>
+              <option>Completed</option>
+              <option>Pending</option>
+              <option>Cancelled</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="overflow-x-auto">
           <table class="min-w-full divide-y divide-slate-200">
             <thead class="bg-slate-50">
               <tr>
@@ -1153,33 +1230,79 @@ const routes = {
                 <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">To</th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Date</th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-slate-200">
-              <tr>
-                <td class="px-4 py-3 text-sm">Dell Latitude 7420</td>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-4 py-3">
+                  <div class="flex items-center">
+                    <span class="font-medium text-primary-700 hover:text-primary-800">Dell Latitude 7420</span>
+                  </div>
+                </td>
                 <td class="px-4 py-3 text-sm">IT Department</td>
                 <td class="px-4 py-3 text-sm">John Smith</td>
-                <td class="px-4 py-3 text-sm">2023-08-15</td>
+                <td class="px-4 py-3 text-sm">Aug 15, 2025</td>
                 <td class="px-4 py-3 text-sm">
-                  <span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700">
+                  <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                    <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
                     Completed
                   </span>
                 </td>
+                <td class="px-4 py-3 text-sm text-right">
+                  <button class="text-slate-400 hover:text-primary-700">
+                    <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                  </button>
+                </td>
               </tr>
-              <tr>
-                <td class="px-4 py-3 text-sm">iPhone 13 Pro</td>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-4 py-3">
+                  <div class="flex items-center">
+                    <span class="font-medium text-primary-700 hover:text-primary-800">iPhone 13 Pro</span>
+                  </div>
+                </td>
                 <td class="px-4 py-3 text-sm">Sarah Johnson</td>
                 <td class="px-4 py-3 text-sm">Marketing</td>
-                <td class="px-4 py-3 text-sm">2023-08-10</td>
+                <td class="px-4 py-3 text-sm">Aug 10, 2025</td>
                 <td class="px-4 py-3 text-sm">
-                  <span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700">
+                  <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                    <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
                     Completed
                   </span>
+                </td>
+                <td class="px-4 py-3 text-sm text-right">
+                  <button class="text-slate-400 hover:text-primary-700">
+                    <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-4 py-3">
+                  <div class="flex items-center">
+                    <span class="font-medium text-primary-700 hover:text-primary-800">HP LaserJet Printer</span>
+                  </div>
+                </td>
+                <td class="px-4 py-3 text-sm">Finance</td>
+                <td class="px-4 py-3 text-sm">IT Department</td>
+                <td class="px-4 py-3 text-sm">Aug 5, 2025</td>
+                <td class="px-4 py-3 text-sm">
+                  <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
+                    <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                    Pending
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-sm text-right">
+                  <button class="text-slate-400 hover:text-primary-700">
+                    <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        
+        <div class="px-4 py-3 bg-slate-50 border-t border-slate-200 text-sm text-slate-500">
+          Showing 3 of 248 assignments
         </div>
       </div>
     </div>
@@ -1893,6 +2016,143 @@ const routes = {
     </div>
   `),
   
+  '#/maintenance/schedule': () => Page('Schedule Maintenance', `
+      <div class="space-y-6">
+        <p class="text-slate-600">Schedule preventive or corrective maintenance for your assets.</p>
+      
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft">
+          <h3 class="font-semibold mb-4 text-primary-800">Maintenance Scheduling Form</h3>
+        
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Asset</label>
+                <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                  <option>Select an asset...</option>
+                  <option>HP LaserJet Printer</option>
+                  <option>Dell Latitude 7420</option>
+                  <option>Conference Room Projector</option>
+                  <option>HVAC System - Building A</option>
+                  <option>Elevator - Main Building</option>
+                </select>
+              </div>
+            
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Maintenance Type</label>
+                <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                  <option>Select type...</option>
+                  <option>Preventive</option>
+                  <option>Corrective</option>
+                  <option>Condition-based</option>
+                  <option>Predictive</option>
+                  <option>Emergency</option>
+                </select>
+              </div>
+            
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Priority</label>
+                <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                  <option>Select priority...</option>
+                  <option>Low</option>
+                  <option>Medium</option>
+                  <option>High</option>
+                  <option>Critical</option>
+                </select>
+              </div>
+            
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Assign To</label>
+                <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                  <option>Select technician...</option>
+                  <option>John Smith</option>
+                  <option>Sarah Johnson</option>
+                  <option>Mike Williams</option>
+                  <option>External Vendor</option>
+                </select>
+              </div>
+            </div>
+          
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Scheduled Date</label>
+                <input type="date" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+              </div>
+            
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Estimated Duration</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <input type="number" placeholder="Hours" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                  <input type="number" placeholder="Minutes" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                </div>
+              </div>
+            
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Estimated Cost</label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <span class="text-slate-500">$</span>
+                  </div>
+                  <input type="number" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary pl-7">
+                </div>
+              </div>
+            
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Description / Instructions</label>
+                <textarea rows="3" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary"></textarea>
+              </div>
+            </div>
+          </div>
+        
+          <div class="mt-6 flex justify-end gap-2">
+            <button class="btn">Cancel</button>
+            <button class="btn-primary">Schedule Maintenance</button>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft">
+          <h3 class="font-semibold mb-4 text-primary-800">Recurring Maintenance</h3>
+        
+          <div class="grid md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Recurrence Pattern</label>
+              <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                <option>None (One-time)</option>
+                <option>Daily</option>
+                <option>Weekly</option>
+                <option>Monthly</option>
+                <option>Quarterly</option>
+                <option>Yearly</option>
+                <option>Custom</option>
+              </select>
+            </div>
+          
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Repeat Every</label>
+              <div class="grid grid-cols-2 gap-2">
+                <input type="number" value="1" min="1" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                  <option>Day(s)</option>
+                  <option>Week(s)</option>
+                  <option>Month(s)</option>
+                  <option>Year(s)</option>
+                </select>
+              </div>
+            </div>
+          
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">End After</label>
+              <div class="grid grid-cols-2 gap-2">
+                <input type="number" value="10" min="1" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                <div class="flex items-center">
+                  <span class="text-sm text-slate-700">occurrences</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `),
+
   '#/maintenance': () => Page('Maintenance Monitoring', `
       <div class="space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-4">
@@ -1900,9 +2160,9 @@ const routes = {
             <button class="btn-primary">
               <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Create Work Order
             </button>
-            <button class="btn">
+            <a href="#/maintenance/schedule" class="btn">
               <i data-lucide="calendar" class="w-4 h-4 mr-1"></i> Schedule Maintenance
-            </button>
+            </a>
             <button class="btn">
               <i data-lucide="download" class="w-4 h-4 mr-1"></i> Export
             </button>
