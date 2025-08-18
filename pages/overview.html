@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assets Management — Features Overview</title>
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { 
+              DEFAULT: '#b60a1c', 
+              50: '#fef2f3', 
+              100: '#fde6e7', 
+              200: '#fbd0d4', 
+              300: '#f7a9b0', 
+              400: '#f27580', 
+              500: '#e73d4c', 
+              600: '#d71d2d', 
+              700: '#b60a1c', 
+              800: '#970c1a', 
+              900: '#7d0e19' 
+            },
+            marriott: {
+              red: '#b60a1c',
+              gray: '#6d6e71',
+              black: '#000000'
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 25px rgba(2, 6, 23, 0.08)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Icons (Lucide) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Smooth scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    
+    /* Navigation styles */
+    .nav-item { display:flex; align-items:center; gap:.6rem; padding:.55rem .65rem; border-radius:.75rem; color:#0f172a; }
+    .nav-item:hover { background:#fef2f3; color: #b60a1c; }
+    .nav-item.active { background:#fde6e7; color: #b60a1c; font-weight:600; }
+    .sub-item { display:block; padding:.4rem .5rem; border-radius:.5rem; color:#334155; }
+    .sub-item:hover { background:#fef2f3; color: #b60a1c; }
+    .btn { padding:.5rem .75rem; border-radius:.75rem; border:1px solid #cbd5e1; background:#fff; }
+    .btn:hover { background:#fef2f3; border-color:#b60a1c; color: #b60a1c; }
+    .btn-primary { background:#b60a1c; color:white; border-color:#b60a1c; }
+    .btn-primary:hover { background:#970c1a; color:white; border-color:#970c1a; }
+    .group.open > button .chev { transform: rotate(180deg); transition: transform .2s; }
+    
+    /* Feature card */
+    .feature-card {
+      @apply bg-white rounded-xl border border-slate-200 p-4 shadow-soft transition-all duration-200;
+    }
+    .feature-card:hover {
+      @apply shadow-md border-primary-100;
+    }
+    .feature-icon {
+      @apply inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary mb-3;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+  <!-- Topbar -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="p-2 rounded-md hover:bg-primary-50 text-slate-700 hover:text-primary">
+          <i data-lucide="arrow-left"></i>
+        </a>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <i data-lucide="box"></i>
+          </span>
+          <span class="font-semibold text-primary-900">Assets Management</span>
+          <span class="text-xs text-marriott-gray">Features Overview</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="btn-primary">
+          Go to Application
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Hero section -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-primary-900 mb-4">Asset Management System</h1>
+      <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+        A comprehensive solution for tracking, maintaining, and managing your organization's assets
+      </p>
+    </div>
+    
+    <!-- Features grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <!-- Dashboard -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="layout-dashboard"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Dashboard</h3>
+        <p class="text-slate-600 mb-3">
+          Get a quick overview of your assets with KPIs and visual charts showing distribution by category and location.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Total Assets, NBV, Due for Service
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Assets by Category & Location charts
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Recent activity feed
+          </li>
+        </ul>
+        <a href="index.html#/dashboard" class="text-primary hover:underline text-sm font-medium">
+          View Dashboard
+        </a>
+      </div>
+      
+      <!-- Asset Register -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="list"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Asset Register</h3>
+        <p class="text-slate-600 mb-3">
+          Browse, filter, and manage all your assets with powerful filtering and bulk actions.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Smart filters (Category, Location, etc.)
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Column chooser for customized views
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Bulk actions (verify, assign, export)
+          </li>
+        </ul>
+        <a href="index.html#/assets/register" class="text-primary hover:underline text-sm font-medium">
+          View Asset Register
+        </a>
+      </div>
+      
+      <!-- Add Asset -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="plus-circle"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Add Asset</h3>
+        <p class="text-slate-600 mb-3">
+          Easily add new assets with a progressive form organized into logical sections.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Core information section
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Ownership & Location details
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Financial & Warranty information
+          </li>
+        </ul>
+        <a href="index.html#/assets/add" class="text-primary hover:underline text-sm font-medium">
+          Try Add Asset
+        </a>
+      </div>
+      
+      <!-- Asset Detail -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="file-text"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Asset Detail</h3>
+        <p class="text-slate-600 mb-3">
+          View comprehensive asset information organized in tabs for easy navigation.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Overview with ID, QR, location
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Financials with NBV timeline
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Maintenance, Documents, Audit Trail
+          </li>
+        </ul>
+        <a href="index.html#/assets/detail" class="text-primary hover:underline text-sm font-medium">
+          View Asset Detail
+        </a>
+      </div>
+      
+      <!-- Assignments -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="user-check"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Assignments</h3>
+        <p class="text-slate-600 mb-3">
+          Transfer assets between departments or employees and track assignment history.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Transfer wizard for easy assignments
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Complete assignment history log
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Department and employee transfers
+          </li>
+        </ul>
+        <a href="index.html#/assignments" class="text-primary hover:underline text-sm font-medium">
+          View Assignments
+        </a>
+      </div>
+      
+      <!-- Maintenance -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="wrench"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Maintenance</h3>
+        <p class="text-slate-600 mb-3">
+          Schedule and track maintenance activities for your assets.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Work orders and schedules
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Service calendar view
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Maintenance cost tracking
+          </li>
+        </ul>
+        <a href="index.html#/maintenance" class="text-primary hover:underline text-sm font-medium">
+          View Maintenance
+        </a>
+      </div>
+      
+      <!-- Depreciation -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="percent"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Depreciation</h3>
+        <p class="text-slate-600 mb-3">
+          Calculate and manage asset depreciation with multiple methods.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Multiple depreciation methods
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Period-based depreciation runs
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Preview and post functionality
+          </li>
+        </ul>
+        <a href="index.html#/depreciation" class="text-primary hover:underline text-sm font-medium">
+          View Depreciation
+        </a>
+      </div>
+      
+      <!-- Physical Verification -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="scan-line"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Physical Verification</h3>
+        <p class="text-slate-600 mb-3">
+          Conduct physical asset verification with QR/barcode scanning.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            QR/barcode scanning sessions
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Exception reports (missing, moved)
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Condition verification
+          </li>
+        </ul>
+        <a href="index.html#/verification" class="text-primary hover:underline text-sm font-medium">
+          View Verification
+        </a>
+      </div>
+      
+      <!-- Disposals -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="recycle"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Disposals</h3>
+        <p class="text-slate-600 mb-3">
+          Manage the complete asset disposal process from request to accounting.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Request → approve workflow
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Record disposal method & proceeds
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Accounting handoff
+          </li>
+        </ul>
+        <a href="index.html#/disposals" class="text-primary hover:underline text-sm font-medium">
+          View Disposals
+        </a>
+      </div>
+      
+      <!-- Reports -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="bar-chart-3"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Reports</h3>
+        <p class="text-slate-600 mb-3">
+          Generate comprehensive reports with export options.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Canned + custom report builder
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Multiple export formats (CSV/XLSX/PDF)
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            NBV, aging, maintenance cost reports
+          </li>
+        </ul>
+        <a href="index.html#/reports" class="text-primary hover:underline text-sm font-medium">
+          View Reports
+        </a>
+      </div>
+      
+      <!-- Admin / Settings -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="settings"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Admin / Settings</h3>
+        <p class="text-slate-600 mb-3">
+          Configure system settings and manage user access.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Roles & permissions management
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Numbering schemes configuration
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Custom fields & email/WhatsApp alerts
+          </li>
+        </ul>
+        <a href="index.html#/admin" class="text-primary hover:underline text-sm font-medium">
+          View Admin Settings
+        </a>
+      </div>
+      
+      <!-- Suppliers & Procurement -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i data-lucide="truck"></i>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">Suppliers & Procurement</h3>
+        <p class="text-slate-600 mb-3">
+          Manage suppliers and link procurement documents to assets.
+        </p>
+        <ul class="text-sm text-slate-500 space-y-1 mb-4">
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Supplier directory
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            PO/Invoice reference linking
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+            Warranty tracking
+          </li>
+        </ul>
+        <a href="index.html#/procurement" class="text-primary hover:underline text-sm font-medium">
+          View Procurement
+        </a>
+      </div>
+    </div>
+    
+    <!-- CTA section -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-8 text-center shadow-soft">
+      <h2 class="text-2xl font-bold text-primary-900 mb-4">Ready to get started?</h2>
+      <p class="text-slate-600 mb-6 max-w-2xl mx-auto">
+        Explore the full Asset Management System and discover how it can help your organization
+        track, maintain, and manage assets more efficiently.
+      </p>
+      <a href="index.html" class="btn-primary px-6 py-3 text-lg">
+        Launch Application
+      </a>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 bg-white/80 mt-12">
+    <div class="max-w-7xl mx-auto px-4 py-6 text-sm text-slate-600 flex items-center justify-between">
+      <span>© <span id="year">2025</span> Assets Management Demo</span>
+      <span class="flex items-center gap-2">
+        <i data-lucide="shield-check" class="w-4 h-4"></i>
+        Prototype UI
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize icons
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      
+      // Set current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>

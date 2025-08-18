@@ -12,7 +12,24 @@
       theme: {
         extend: {
           colors: {
-            primary: { DEFAULT: '#2563eb', 50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a' }
+            primary: { 
+              DEFAULT: '#b60a1c', 
+              50: '#fef2f3', 
+              100: '#fde6e7', 
+              200: '#fbd0d4', 
+              300: '#f7a9b0', 
+              400: '#f27580', 
+              500: '#e73d4c', 
+              600: '#d71d2d', 
+              700: '#b60a1c', 
+              800: '#970c1a', 
+              900: '#7d0e19' 
+            },
+            marriott: {
+              red: '#b60a1c',
+              gray: '#6d6e71',
+              black: '#000000'
+            }
           },
           boxShadow: {
             soft: '0 10px 25px rgba(2, 6, 23, 0.08)'
@@ -29,21 +46,21 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-    /* Smooth scrollbar (optional) */
-    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    /* Smooth scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
     ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     
     /* Navigation styles */
-    .nav-item {
-      display:flex; align-items:center; gap:.625rem; padding:.6rem .75rem; border-radius:.75rem; color:#0f172a;
-    }
-    .nav-item:hover { background: #f1f5f9; }
-    .nav-item.active { background:#e2e8f0; font-weight:600; }
+    .nav-item { display:flex; align-items:center; gap:.6rem; padding:.55rem .65rem; border-radius:.75rem; color:#0f172a; }
+    .nav-item:hover { background:#fef2f3; color: #b60a1c; }
+    .nav-item.active { background:#fde6e7; color: #b60a1c; font-weight:600; }
     .sub-item { display:block; padding:.4rem .5rem; border-radius:.5rem; color:#334155; }
-    .sub-item:hover { background:#f1f5f9; }
+    .sub-item:hover { background:#fef2f3; color: #b60a1c; }
     .btn { padding:.5rem .75rem; border-radius:.75rem; border:1px solid #cbd5e1; background:#fff; }
-    .btn:hover { background:#f8fafc; border-color:#94a3b8; }
+    .btn:hover { background:#fef2f3; border-color:#b60a1c; color: #b60a1c; }
+    .btn-primary { background:#b60a1c; color:white; border-color:#b60a1c; }
+    .btn-primary:hover { background:#970c1a; color:white; border-color:#970c1a; }
     .group.open > button .chev { transform: rotate(180deg); transition: transform .2s; }
   </style>
 </head>

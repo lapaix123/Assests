@@ -1,6 +1,6 @@
 # Assets Management System
 
-A web-based asset management system for tracking, maintaining, and managing organizational assets.
+A comprehensive web-based asset management system for tracking, maintaining, and managing organizational assets, styled with Marriott brand colors.
 
 ## Project Structure
 
@@ -9,6 +9,7 @@ The project is organized into the following folders:
 - **pages/** - Contains HTML pages for different views
   - `index.html` - Main application entry point with fragment loading
   - `dashboard.html` - Dashboard view with all components integrated
+  - `overview.html` - Comprehensive features overview page
 
 - **fragments/** - Contains reusable HTML components
   - `fragment-topbar.html` - Top navigation bar
@@ -23,21 +24,51 @@ The project is organized into the following folders:
 
 ## Features
 
-- **Dashboard** - Overview of asset metrics and recent activity
-- **Asset Management** - Register, add, and manage assets
-- **Maintenance** - Plan and track maintenance work orders
-- **Depreciation** - Configure methods and post depreciation runs
-- **Verification** - Run physical verification sessions
-- **Disposals** - Request, approve, and record disposals
-- **Procurement** - Link suppliers, POs, invoices to assets
-- **Reports** - Generate various asset reports
-- **Admin/Settings** - Manage roles, numbering sequences, etc.
-- **Lookups** - Manage reference data for the system
+### Dashboard
+- KPIs (Total Assets, NBV, Due for Service, Overdue Verifications)
+- Charts showing distribution by Category and Location
+- Recent activity feed
+- Quick action buttons
+
+### Asset Register
+- Smart filters (Category, Location tree, Department, Status, Condition)
+- Column chooser for customized views
+- Bulk actions (verify, assign, export)
+- Pagination and sorting
+
+### Add Asset
+- One-page form with progressive sections:
+  - Core Information
+  - Ownership & Assignment
+  - Location
+  - Financial Information
+  - Warranty & Insurance
+
+### Asset Detail
+- Tabs for different information categories:
+  - Overview (ID, QR, location, assignment)
+  - Financials (cost, useful life, method, NBV timeline)
+  - Maintenance (history & upcoming)
+  - Documents (invoice, warranty, photos)
+  - Audit Trail
+
+### Assignments
+- Transfer wizard (department/employee)
+- Assignment history log
+
+### Additional Modules
+- **Maintenance**: Work orders, schedules, service calendar, cost capture
+- **Depreciation**: Methods, runs by period, preview & post, export
+- **Physical Verification**: Scan sessions (QR/barcode), exception reports
+- **Disposals**: Request → approve → record method & proceeds → accounting handoff
+- **Suppliers & Procurement**: Supplier directory, PO/Invoice references, warranty tracking
+- **Reports**: Canned + builder (CSV/XLSX/PDF): register, NBV, aging, maintenance cost
+- **Admin / Settings**: Roles & permissions, numbering schemes, custom fields, alerts
 
 ## Technology Stack
 
 - HTML5
-- TailwindCSS (via CDN)
+- TailwindCSS (via CDN) with Marriott brand colors
 - JavaScript (Vanilla)
 - Chart.js for data visualization
 - Lucide for icons
@@ -45,8 +76,9 @@ The project is organized into the following folders:
 ## Getting Started
 
 1. Clone the repository
-2. Open `index.html` in your browser
-3. Navigate through the application using the sidebar menu
+2. Open `index.html` in your browser to access the application
+3. Or open `overview.html` to see a comprehensive features overview
+4. Navigate through the application using the sidebar menu
 
 ## Development
 

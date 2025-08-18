@@ -1,26 +1,26 @@
-<header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200" role="banner">
   <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <button id="sidebarToggle" class="lg:hidden p-2 rounded-md hover:bg-slate-100">
+      <button id="sidebarToggle" class="lg:hidden p-2 rounded-md hover:bg-primary-50 text-slate-700 hover:text-primary" aria-label="Toggle sidebar menu" aria-expanded="false" aria-controls="sidebar">
         <i data-lucide="menu"></i>
       </button>
       <div class="flex items-center gap-2">
-        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary" aria-hidden="true">
           <i data-lucide="box"></i>
         </span>
-        <span class="font-semibold">Assets Management</span>
-        <span class="text-xs text-slate-500">Demo</span>
+        <span class="font-semibold text-primary-900">Assets Management</span>
+        <span class="text-xs text-marriott-gray">Demo</span>
       </div>
     </div>
     <div class="flex items-center gap-2">
-      <div class="hidden md:flex items-center gap-2 rounded-xl border bg-white px-3 py-1.5">
-        <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
-        <input placeholder="Quick search…" class="outline-none text-sm w-56" />
+      <div class="hidden md:flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-1.5 focus-within:border-primary-300 focus-within:ring-1 focus-within:ring-primary-300" role="search">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400" aria-hidden="true"></i>
+        <input placeholder="Quick search…" class="outline-none text-sm w-56" aria-label="Quick search" />
       </div>
-      <button class="p-2 rounded-lg hover:bg-slate-100">
+      <button class="p-2 rounded-lg hover:bg-primary-50 text-slate-700 hover:text-primary" aria-label="Notifications">
         <i data-lucide="bell"></i>
       </button>
-      <div class="h-8 w-8 rounded-full bg-gradient-to-br from-primary/80 to-primary shadow-soft"></div>
+      <div class="h-8 w-8 rounded-full bg-gradient-to-br from-primary-600 to-primary-800 shadow-soft" aria-label="User profile" role="img"></div>
     </div>
   </div>
 </header>

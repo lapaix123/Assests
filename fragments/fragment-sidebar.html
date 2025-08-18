@@ -1,22 +1,31 @@
-<aside id="sidebar" class="col-span-12 lg:col-span-3 xl:col-span-2 bg-white border border-slate-200 rounded-2xl shadow-soft p-3 lg:sticky lg:top-16 h-max hidden lg:block">
-  <nav class="space-y-2 text-sm" id="sidebarNav">
-    <div class="px-2 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Main</div>
+<aside id="sidebar" class="col-span-12 lg:col-span-3 xl:col-span-2 bg-white border border-slate-200 rounded-2xl shadow-soft p-4 lg:sticky lg:top-16 h-max hidden lg:block max-h-[calc(100vh-5rem)] overflow-y-auto scrollbar-thin" role="navigation" aria-label="Main Navigation">
+  <nav class="space-y-3 text-sm" id="sidebarNav">
+    <div class="px-2 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1" role="heading" aria-level="2">Main</div>
     <a data-route="#/dashboard" class="nav-item">
       <i data-lucide="layout-dashboard"></i><span>Dashboard</span>
     </a>
 
+    <a data-route="#/assets" class="nav-item">
+      <i data-lucide="boxes"></i><span>Assets</span>
+    </a>
+    
     <div class="group">
-      <button class="nav-item justify-between w-full">
+      <button class="nav-item justify-between w-full" aria-expanded="false" aria-controls="asset-management-submenu">
         <span class="inline-flex items-center gap-2">
-          <i data-lucide="boxes"></i><span>Assets</span>
+          <i data-lucide="list" aria-hidden="true"></i><span>Asset Management</span>
         </span>
-        <i class="chev" data-lucide="chevron-down"></i>
+        <i class="chev" data-lucide="chevron-down" aria-hidden="true"></i>
       </button>
-      <div class="ml-9 mt-1 space-y-1 hidden group-[.open]:block">
-        <a data-route="#/assets/register" class="sub-item">Register</a>
-        <a data-route="#/assets/add" class="sub-item">Add Asset</a>
+      <div id="asset-management-submenu" class="ml-9 mt-1 space-y-1 hidden group-[.open]:block" role="menu">
+        <a data-route="#/assets/register" class="sub-item" role="menuitem">Register</a>
+        <a data-route="#/assets/add" class="sub-item" role="menuitem">Add Asset</a>
+        <a data-route="#/assets/detail" class="sub-item" role="menuitem">Asset Detail</a>
       </div>
     </div>
+    
+    <a data-route="#/assignments" class="nav-item">
+      <i data-lucide="user-check"></i><span>Assignments</span>
+    </a>
 
     <a data-route="#/maintenance" class="nav-item">
       <i data-lucide="wrench"></i><span>Maintenance</span>
@@ -41,7 +50,7 @@
     </a>
 
     <!-- Lookups -->
-    <div class="px-2 pt-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Lookups</div>
+    <div class="px-2 pt-4 pb-2 mt-2 text-xs font-semibold uppercase tracking-wider text-slate-500 border-t border-slate-100">Lookups</div>
 
     <a data-route="#/lookups/categories" class="nav-item">
       <i data-lucide="layers"></i><span>Categories & Classes</span>
