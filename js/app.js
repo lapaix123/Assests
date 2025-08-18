@@ -233,7 +233,7 @@ const routes = {
           }
         },
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         animation: {
           duration: 1000,
           easing: 'easeOutQuart'
@@ -316,8 +316,10 @@ const routes = {
             }
           }
         },
-        responsive: true,
-        maintainAspectRatio: false,
+        responsive: false,
+        maintainAspectRatio: true,
+        width: 400,
+        height: 300,
         animation: {
           duration: 1200,
           easing: 'easeOutQuart'
@@ -447,6 +449,7 @@ const routes = {
               color: '#334155'
             }
           },
+
           tooltip: {
             backgroundColor: 'rgba(255, 255, 255, 0.95)',
             titleColor: '#334155',
