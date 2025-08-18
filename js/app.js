@@ -21,14 +21,14 @@ const Page = (title, content) => {
 };
 
 const metricCard = (label, value, icon) => `
-  <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-soft hover:shadow-md transition-all duration-300 group">
+  <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-soft hover:shadow-md group">
     <div class="flex items-center gap-4">
-      <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/15 group-hover:scale-110 transition-all duration-300">
+      <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/15">
         <i data-lucide="${icon}" class="w-6 h-6"></i>
       </span>
       <div>
         <div class="text-sm font-medium text-slate-500 mb-1">${label}</div>
-        <div class="text-2xl font-bold text-slate-800 group-hover:text-primary transition-colors duration-300">${value}</div>
+        <div class="text-2xl font-bold text-slate-800 group-hover:text-primary">${value}</div>
       </div>
     </div>
   </div>`;
@@ -1166,8 +1166,32 @@ const routes = {
 
   '#/assets': () => Page('Assets Management', `
     <div class="space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <a href="#/assets/add" class="btn-primary">
+            <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Add Asset
+          </a>
+          <button class="btn" onclick="document.getElementById('importModal').classList.remove('hidden')">
+            <i data-lucide="upload" class="w-4 h-4 mr-1"></i> Import
+          </button>
+          <button class="btn">
+            <i data-lucide="download" class="w-4 h-4 mr-1"></i> Export
+          </button>
+          <div class="dropdown relative ml-1">
+            <button class="btn">
+              <i data-lucide="more-horizontal" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-2 rounded-xl border bg-white px-3 py-1.5">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+          <input placeholder="Search assets..." class="outline-none text-sm w-56" />
+        </div>
+      </div>
+      
       <!-- Status Cards -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
           <div class="flex items-center justify-between">
             <div>
@@ -1214,23 +1238,289 @@ const routes = {
         </div>
       </div>
       
-      <!-- Action Buttons and Search -->
-      <div class="flex flex-wrap items-center justify-between gap-4">
-        <div class="flex flex-wrap items-center gap-2">
-          <a href="#/assets/add" class="btn-primary">
-            <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Add Asset
-          </a>
-          <button class="btn" onclick="document.getElementById('importModal').classList.remove('hidden')">
-            <i data-lucide="upload" class="w-4 h-4 mr-1"></i> Import
-          </button>
-          <button class="btn">
-            <i data-lucide="download" class="w-4 h-4 mr-1"></i> Export
-          </button>
+      <div class="grid md:grid-cols-4 gap-4">
+        <div class="md:col-span-1">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-soft">
+            <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+              <i data-lucide="filter" class="w-4 h-4"></i>
+              Smart Filters
+            </h3>
+            
+            <div class="space-y-5">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
+                  <i data-lucide="layers" class="w-4 h-4 text-slate-500"></i>
+                  Category
+                </label>
+                <div class="relative">
+                  <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary pl-3 pr-8 py-2.5 appearance-none bg-white">
+                    <option>All Categories</option>
+                    <option>IT Equipment</option>
+                    <option>Furniture</option>
+                    <option>Vehicles</option>
+                    <option>Buildings</option>
+                    <option>Machinery</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
+                  <i data-lucide="map-pin" class="w-4 h-4 text-slate-500"></i>
+                  Location
+                </label>
+                <div class="space-y-2 max-h-36 overflow-y-auto scrollbar-thin p-1 border border-slate-200 rounded-lg">
+                  <label class="flex items-center p-2 hover:bg-slate-50 rounded-md transition-colors duration-150">
+                    <input type="checkbox" class="rounded text-primary focus:ring-primary" checked />
+                    <span class="ml-2 text-sm">Headquarters</span>
+                  </label>
+                  <label class="flex items-center p-2 hover:bg-slate-50 rounded-md transition-colors duration-150">
+                    <input type="checkbox" class="rounded text-primary focus:ring-primary" checked />
+                    <span class="ml-2 text-sm">Branch Office 1</span>
+                  </label>
+                  <label class="flex items-center p-2 hover:bg-slate-50 rounded-md transition-colors duration-150">
+                    <input type="checkbox" class="rounded text-primary focus:ring-primary" checked />
+                    <span class="ml-2 text-sm">Branch Office 2</span>
+                  </label>
+                  <label class="flex items-center p-2 hover:bg-slate-50 rounded-md transition-colors duration-150">
+                    <input type="checkbox" class="rounded text-primary focus:ring-primary" />
+                    <span class="ml-2 text-sm">Warehouse</span>
+                  </label>
+                </div>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
+                  <i data-lucide="users" class="w-4 h-4 text-slate-500"></i>
+                  Department
+                </label>
+                <div class="relative">
+                  <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary pl-3 pr-8 py-2.5 appearance-none bg-white">
+                    <option>All Departments</option>
+                    <option>IT</option>
+                    <option>Finance</option>
+                    <option>Marketing</option>
+                    <option>Operations</option>
+                    <option>HR</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
+                  <i data-lucide="activity" class="w-4 h-4 text-slate-500"></i>
+                  Status
+                </label>
+                <div class="flex flex-wrap gap-2">
+                  <label class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:border-primary hover:bg-primary-50 cursor-pointer transition-colors duration-150">
+                    <input type="radio" name="status" class="hidden" checked />
+                    <span class="text-sm">All</span>
+                  </label>
+                  <label class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:border-primary hover:bg-primary-50 cursor-pointer transition-colors duration-150">
+                    <input type="radio" name="status" class="hidden" />
+                    <span class="text-sm">Active</span>
+                  </label>
+                  <label class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:border-primary hover:bg-primary-50 cursor-pointer transition-colors duration-150">
+                    <input type="radio" name="status" class="hidden" />
+                    <span class="text-sm">Maintenance</span>
+                  </label>
+                  <label class="inline-flex items-center px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:border-primary hover:bg-primary-50 cursor-pointer transition-colors duration-150">
+                    <input type="radio" name="status" class="hidden" />
+                    <span class="text-sm">Disposed</span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="pt-2 space-y-3">
+                <button class="btn-primary w-full flex items-center justify-center gap-2">
+                  <i data-lucide="filter" class="w-4 h-4"></i>
+                  Apply Filters
+                </button>
+                <button class="btn w-full flex items-center justify-center gap-2">
+                  <i data-lucide="x" class="w-4 h-4"></i>
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         
-        <div class="flex items-center gap-2 rounded-xl border bg-white px-3 py-1.5">
-          <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
-          <input placeholder="Search assets..." class="outline-none text-sm w-56" />
+        <div class="md:col-span-3">
+          <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+            <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+              <div class="font-medium">1,248 assets found</div>
+              <div class="flex items-center gap-2">
+                <div class="dropdown relative">
+                  <button class="btn">
+                    <i data-lucide="columns" class="w-4 h-4 mr-1"></i> Columns
+                  </button>
+                </div>
+                <select class="rounded-lg border-slate-300 focus:border-primary focus:ring-primary text-sm">
+                  <option>10 per page</option>
+                  <option>25 per page</option>
+                  <option>50 per page</option>
+                  <option>100 per page</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="table-container">
+              <table class="min-w-full divide-y divide-slate-200">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="flex items-center">
+                        <input type="checkbox" class="rounded text-primary focus:ring-primary mr-2" />
+                        <span>Asset Name</span>
+                        <i data-lucide="arrow-up" class="w-4 h-4 ml-1 text-primary"></i>
+                      </div>
+                    </th>
+                    <th>Category</th>
+                    <th>Location</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="transition-colors duration-150">
+                    <td>
+                      <div class="flex items-center">
+                        <input type="checkbox" class="rounded text-primary focus:ring-primary mr-2" />
+                        <a href="#/assets/detail" class="text-primary hover:underline font-medium">Dell Latitude 7420</a>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <span class="inline-flex h-6 w-6 items-center justify-center rounded-md bg-blue-50 text-blue-600">
+                          <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
+                        </span>
+                        <span>IT Equipment</span>
+                      </div>
+                    </td>
+                    <td>Headquarters</td>
+                    <td>IT Department</td>
+                    <td>
+                      <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                        Active
+                      </span>
+                    </td>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                          <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                        <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                          <i data-lucide="clipboard-check" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                        <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                          <i data-lucide="more-vertical" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="transition-colors duration-150">
+                    <td>
+                      <div class="flex items-center">
+                        <input type="checkbox" class="rounded text-primary focus:ring-primary mr-2" />
+                        <a href="#/assets/detail" class="text-primary hover:underline font-medium">iPhone 13 Pro</a>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <span class="inline-flex h-6 w-6 items-center justify-center rounded-md bg-blue-50 text-blue-600">
+                          <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+                        </span>
+                        <span>IT Equipment</span>
+                      </div>
+                    </td>
+                    <td>Branch Office 1</td>
+                    <td>Marketing</td>
+                    <td>
+                      <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                        Active
+                      </span>
+                    </td>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                          <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                        <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                          <i data-lucide="clipboard-check" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                        <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                          <i data-lucide="more-vertical" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="transition-colors duration-150">
+                    <td>
+                      <div class="flex items-center">
+                        <input type="checkbox" class="rounded text-primary focus:ring-primary mr-2" />
+                        <a href="#/assets/detail" class="text-primary hover:underline font-medium">Conference Table</a>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <span class="inline-flex h-6 w-6 items-center justify-center rounded-md bg-amber-50 text-amber-600">
+                          <i data-lucide="armchair" class="w-3.5 h-3.5"></i>
+                        </span>
+                        <span>Furniture</span>
+                      </div>
+                    </td>
+                    <td>Headquarters</td>
+                    <td>Common Areas</td>
+                    <td>
+                      <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                        Active
+                      </span>
+                    </td>
+                    <td>
+                      <div class="flex items-center gap-2">
+                        <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                          <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                        <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                          <i data-lucide="clipboard-check" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                        <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                          <i data-lucide="more-vertical" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="p-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+              <div class="text-sm text-slate-500">Showing 1-10 of 1,248 assets</div>
+              <div class="flex items-center gap-1">
+                <button class="p-2 rounded-lg hover:bg-slate-100 transition-colors duration-150 text-slate-400">
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+                <button class="p-2 rounded-lg bg-primary-50 text-primary font-medium">1</button>
+                <button class="p-2 rounded-lg hover:bg-slate-100 transition-colors duration-150">2</button>
+                <button class="p-2 rounded-lg hover:bg-slate-100 transition-colors duration-150">3</button>
+                <button class="p-2 rounded-lg hover:bg-slate-100 transition-colors duration-150">...</button>
+                <button class="p-2 rounded-lg hover:bg-slate-100 transition-colors duration-150">125</button>
+                <button class="p-2 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                  <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -1582,7 +1872,530 @@ const routes = {
     </div>
   `),
   
-  '#/maintenance': () => Page('Maintenance', placeholder('Plan work orders and schedules.')),
+  '#/maintenance': () => Page('Maintenance Monitoring', `
+      <div class="space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2">
+            <button class="btn-primary">
+              <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Create Work Order
+            </button>
+            <button class="btn">
+              <i data-lucide="calendar" class="w-4 h-4 mr-1"></i> Schedule Maintenance
+            </button>
+            <button class="btn">
+              <i data-lucide="download" class="w-4 h-4 mr-1"></i> Export
+            </button>
+          </div>
+        
+          <div class="flex items-center gap-2 rounded-xl border bg-white px-3 py-1.5">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+            <input placeholder="Search maintenance..." class="outline-none text-sm w-56" />
+          </div>
+        </div>
+      
+        <!-- Status Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">Scheduled</div>
+                <div class="text-xl font-semibold">24</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                <i data-lucide="calendar"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">In Progress</div>
+                <div class="text-xl font-semibold">8</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+                <i data-lucide="loader"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">Completed</div>
+                <div class="text-xl font-semibold">156</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+                <i data-lucide="check-circle"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">Overdue</div>
+                <div class="text-xl font-semibold">5</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-red-50 flex items-center justify-center text-red-600">
+                <i data-lucide="alert-circle"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Upcoming Maintenance -->
+          <div class="md:col-span-2">
+            <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-soft">
+              <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                <div class="font-medium">Upcoming Maintenance</div>
+                <div class="flex items-center gap-2">
+                  <select class="rounded-lg border-slate-300 focus:border-primary focus:ring-primary text-sm">
+                    <option>Next 7 Days</option>
+                    <option>Next 30 Days</option>
+                    <option>All Scheduled</option>
+                  </select>
+                </div>
+              </div>
+            
+              <div class="table-container">
+                <table class="min-w-full divide-y divide-slate-200">
+                  <thead>
+                    <tr>
+                      <th>Asset</th>
+                      <th>Type</th>
+                      <th>Due Date</th>
+                      <th>Assigned To</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="transition-colors duration-150">
+                      <td>
+                        <div class="flex items-center">
+                          <a href="#/assets/detail" class="text-primary hover:underline font-medium">HP LaserJet Printer</a>
+                        </div>
+                      </td>
+                      <td>Preventive</td>
+                      <td>Aug 20, 2025</td>
+                      <td>John Smith</td>
+                      <td>
+                        <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">
+                          <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                          Scheduled
+                        </span>
+                      </td>
+                      <td>
+                        <div class="flex items-center gap-2">
+                          <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                            <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                          <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                            <i data-lucide="check-square" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="transition-colors duration-150">
+                      <td>
+                        <div class="flex items-center">
+                          <a href="#/assets/detail" class="text-primary hover:underline font-medium">HVAC System</a>
+                        </div>
+                      </td>
+                      <td>Preventive</td>
+                      <td>Aug 21, 2025</td>
+                      <td>Tech Team</td>
+                      <td>
+                        <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">
+                          <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                          Scheduled
+                        </span>
+                      </td>
+                      <td>
+                        <div class="flex items-center gap-2">
+                          <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                            <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                          <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                            <i data-lucide="check-square" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="transition-colors duration-150">
+                      <td>
+                        <div class="flex items-center">
+                          <a href="#/assets/detail" class="text-primary hover:underline font-medium">Company Van</a>
+                        </div>
+                      </td>
+                      <td>Service</td>
+                      <td>Aug 22, 2025</td>
+                      <td>Auto Shop</td>
+                      <td>
+                        <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
+                          <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                          In Progress
+                        </span>
+                      </td>
+                      <td>
+                        <div class="flex items-center gap-2">
+                          <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                            <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                          <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                            <i data-lucide="check-square" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="transition-colors duration-150">
+                      <td>
+                        <div class="flex items-center">
+                          <a href="#/assets/detail" class="text-primary hover:underline font-medium">Dell Server</a>
+                        </div>
+                      </td>
+                      <td>Preventive</td>
+                      <td>Aug 19, 2025</td>
+                      <td>IT Support</td>
+                      <td>
+                        <span class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700">
+                          <span class="h-1.5 w-1.5 rounded-full bg-red-600"></span>
+                          Overdue
+                        </span>
+                      </td>
+                      <td>
+                        <div class="flex items-center gap-2">
+                          <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                            <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                          <button class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors duration-150">
+                            <i data-lucide="check-square" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            
+              <div class="p-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                <div class="text-sm text-slate-500">Showing 4 of 24 scheduled maintenance tasks</div>
+                <a href="#" class="text-sm text-primary hover:underline">View All</a>
+              </div>
+            </div>
+          </div>
+        
+          <!-- Maintenance by Type -->
+          <div class="md:col-span-1">
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-soft h-full">
+              <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+                <i data-lucide="pie-chart" class="w-4 h-4"></i>
+                Maintenance by Type
+              </h3>
+            
+              <div class="h-64">
+                <canvas id="maintenanceTypeChart"></canvas>
+              </div>
+            
+              <div class="mt-4 space-y-2">
+                <div class="flex items-center justify-between text-sm">
+                  <div class="flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full bg-primary"></span>
+                    <span>Preventive</span>
+                  </div>
+                  <span class="font-medium">65%</span>
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                  <div class="flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full bg-amber-500"></span>
+                    <span>Corrective</span>
+                  </div>
+                  <span class="font-medium">20%</span>
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                  <div class="flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full bg-blue-500"></span>
+                    <span>Service</span>
+                  </div>
+                  <span class="font-medium">15%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Maintenance Calendar -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-soft">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-semibold text-primary-800 flex items-center gap-2">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              Maintenance Calendar
+            </h3>
+            <div class="flex items-center gap-2">
+              <button class="btn">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <span class="font-medium">August 2025</span>
+              <button class="btn">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        
+          <div class="grid grid-cols-7 gap-2">
+            <div class="text-center text-sm font-medium text-slate-500 py-2">Sun</div>
+            <div class="text-center text-sm font-medium text-slate-500 py-2">Mon</div>
+            <div class="text-center text-sm font-medium text-slate-500 py-2">Tue</div>
+            <div class="text-center text-sm font-medium text-slate-500 py-2">Wed</div>
+            <div class="text-center text-sm font-medium text-slate-500 py-2">Thu</div>
+            <div class="text-center text-sm font-medium text-slate-500 py-2">Fri</div>
+            <div class="text-center text-sm font-medium text-slate-500 py-2">Sat</div>
+          
+            <!-- Calendar days -->
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1 text-slate-400">
+                <div class="text-xs">28</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1 text-slate-400">
+                <div class="text-xs">29</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1 text-slate-400">
+                <div class="text-xs">30</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1 text-slate-400">
+                <div class="text-xs">31</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">1</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">2</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">3</div>
+              </div>
+            </div>
+          
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">4</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">5</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">6</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">7</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">8</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">9</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">10</div>
+              </div>
+            </div>
+          
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">11</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">12</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">13</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">14</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">15</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">16</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">17</div>
+              </div>
+            </div>
+          
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">18</div>
+                <div class="mt-1 h-1.5 w-full rounded-full bg-red-500" title="Overdue: Dell Server"></div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1 bg-primary-50 border-primary">
+                <div class="text-xs font-medium">19</div>
+                <div class="mt-1 h-1.5 w-full rounded-full bg-red-500" title="Overdue: Dell Server"></div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1 bg-primary-50 border-primary">
+                <div class="text-xs font-medium">20</div>
+                <div class="mt-1 h-1.5 w-full rounded-full bg-blue-500" title="Scheduled: HP LaserJet Printer"></div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1 bg-primary-50 border-primary">
+                <div class="text-xs font-medium">21</div>
+                <div class="mt-1 h-1.5 w-full rounded-full bg-blue-500" title="Scheduled: HVAC System"></div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1 bg-primary-50 border-primary">
+                <div class="text-xs font-medium">22</div>
+                <div class="mt-1 h-1.5 w-full rounded-full bg-amber-500" title="In Progress: Company Van"></div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">23</div>
+              </div>
+            </div>
+            <div class="aspect-square p-1">
+              <div class="h-full rounded-lg border border-slate-200 p-1">
+                <div class="text-xs">24</div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="flex items-center justify-center gap-6 mt-4">
+            <div class="flex items-center gap-2">
+              <span class="h-3 w-3 rounded-full bg-blue-500"></span>
+              <span class="text-sm">Scheduled</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="h-3 w-3 rounded-full bg-amber-500"></span>
+              <span class="text-sm">In Progress</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="h-3 w-3 rounded-full bg-green-500"></span>
+              <span class="text-sm">Completed</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="h-3 w-3 rounded-full bg-red-500"></span>
+              <span class="text-sm">Overdue</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <script>
+        // Initialize maintenance type chart
+        const typeCtx = document.getElementById('maintenanceTypeChart');
+        if (typeCtx) {
+          new Chart(typeCtx, {
+            type: 'doughnut',
+            data: {
+              labels: ['Preventive', 'Corrective', 'Service'],
+              datasets: [{ 
+                data: [65, 20, 15],
+                backgroundColor: [
+                  'rgba(182, 10, 28, 0.8)',
+                  'rgba(245, 158, 11, 0.8)',
+                  'rgba(59, 130, 246, 0.8)'
+                ],
+                borderWidth: 2,
+                borderColor: 'white',
+                hoverBackgroundColor: [
+                  'rgba(182, 10, 28, 0.9)',
+                  'rgba(245, 158, 11, 0.9)',
+                  'rgba(59, 130, 246, 0.9)'
+                ],
+                hoverBorderWidth: 3,
+                hoverOffset: 10
+              }]
+            },
+            options: { 
+              cutout: '65%',
+              radius: '90%',
+              plugins: {
+                legend: {
+                  display: false
+                },
+                tooltip: {
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  titleColor: '#334155',
+                  bodyColor: '#334155',
+                  bodyFont: {
+                    size: 14
+                  },
+                  padding: 12,
+                  boxWidth: 10,
+                  boxHeight: 10,
+                  boxPadding: 3,
+                  usePointStyle: true,
+                  borderColor: 'rgba(226, 232, 240, 1)',
+                  borderWidth: 1,
+                  cornerRadius: 8,
+                  displayColors: true,
+                  caretSize: 6,
+                  callbacks: {
+                    label: function(context) {
+                      const label = context.label || '';
+                      const value = context.raw || 0;
+                      const total = context.dataset.data.reduce((acc, val) => acc + val, 0);
+                      const percentage = Math.round((value / total) * 100);
+                      return \`\${label}: \${percentage}%\`;
+                    }
+                  }
+                }
+              },
+              responsive: true,
+              maintainAspectRatio: false,
+              animation: {
+                animateRotate: true,
+                animateScale: true,
+                duration: 1200,
+                easing: 'easeOutQuart'
+              }
+            }
+          });
+        }
+      </script>
+    `),
   '#/depreciation': () => Page('Depreciation', placeholder('Configure methods and post runs.')),
   '#/verification': () => Page('Verification', placeholder('Run physical verification sessions.')),
   '#/disposals': () => Page('Disposals', placeholder('Record asset disposals.')),
