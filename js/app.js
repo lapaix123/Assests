@@ -2679,10 +2679,619 @@ const routes = {
         }
       </script>
     `),
-  '#/depreciation': () => Page('Depreciation', placeholder('Configure methods and post runs.')),
+  '#/depreciation': () => Page('Asset Depreciation', `
+      <div class="space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-xl font-bold text-primary-800">Depreciation Management</h2>
+            <p class="text-slate-600 mt-1">Track asset value over time, configure depreciation methods, and run depreciation calculations.</p>
+          </div>
+        
+          <div class="flex items-center gap-2">
+            <button class="btn-primary">
+              <i data-lucide="calculator" class="w-4 h-4 mr-1"></i>
+              Run Depreciation
+            </button>
+            <button class="btn">
+              <i data-lucide="settings" class="w-4 h-4 mr-1"></i>
+              Settings
+            </button>
+          </div>
+        </div>
+      
+        <!-- Status Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">Total Asset Value</div>
+                <div class="text-xl font-semibold">$4,285,750</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                <i data-lucide="dollar-sign"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">Accumulated Depreciation</div>
+                <div class="text-xl font-semibold">$864,920</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+                <i data-lucide="trending-down"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">Net Book Value</div>
+                <div class="text-xl font-semibold">$3,420,830</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+                <i data-lucide="landmark"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">Fully Depreciated</div>
+                <div class="text-xl font-semibold">86 assets</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600">
+                <i data-lucide="archive"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Depreciation Chart -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft mb-6">
+          <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+            <i data-lucide="line-chart" class="w-5 h-5"></i>
+            Depreciation Forecast
+          </h3>
+          <div class="h-80">
+            <!-- Placeholder for chart -->
+            <div class="h-full w-full bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-slate-400 mb-2">
+                  <i data-lucide="bar-chart-2" class="w-10 h-10 mx-auto"></i>
+                </div>
+                <p class="text-slate-600">Depreciation forecast chart will be displayed here</p>
+                <p class="text-xs text-slate-500 mt-1">Showing projected asset values over the next 5 years</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Depreciation Methods -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-semibold text-primary-800 flex items-center gap-2">
+              <i data-lucide="settings-2" class="w-5 h-5"></i>
+              Depreciation Methods
+            </h3>
+            <button class="btn">
+              <i data-lucide="plus" class="w-4 h-4 mr-1"></i>
+              Add Method
+            </button>
+          </div>
+        
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200">
+              <thead class="bg-slate-50">
+                <tr>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Method Name</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Type</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Default Life</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Applicable Categories</th>
+                  <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-slate-200">
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <span class="font-medium text-primary-700 hover:text-primary-800">Straight Line</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">Linear</td>
+                  <td class="px-4 py-3 text-sm">5 years</td>
+                  <td class="px-4 py-3 text-sm">IT Equipment, Furniture, Vehicles</td>
+                  <td class="px-4 py-3 text-sm text-right">
+                    <button class="text-slate-400 hover:text-primary-700">
+                      <i data-lucide="edit" class="w-5 h-5"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <span class="font-medium text-primary-700 hover:text-primary-800">Double Declining Balance</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">Accelerated</td>
+                  <td class="px-4 py-3 text-sm">7 years</td>
+                  <td class="px-4 py-3 text-sm">Machinery, Vehicles</td>
+                  <td class="px-4 py-3 text-sm text-right">
+                    <button class="text-slate-400 hover:text-primary-700">
+                      <i data-lucide="edit" class="w-5 h-5"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <span class="font-medium text-primary-700 hover:text-primary-800">Sum of Years Digits</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">Accelerated</td>
+                  <td class="px-4 py-3 text-sm">10 years</td>
+                  <td class="px-4 py-3 text-sm">Buildings, Infrastructure</td>
+                  <td class="px-4 py-3 text-sm text-right">
+                    <button class="text-slate-400 hover:text-primary-700">
+                      <i data-lucide="edit" class="w-5 h-5"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <span class="font-medium text-primary-700 hover:text-primary-800">Units of Production</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">Usage-based</td>
+                  <td class="px-4 py-3 text-sm">N/A</td>
+                  <td class="px-4 py-3 text-sm">Machinery, Vehicles</td>
+                  <td class="px-4 py-3 text-sm text-right">
+                    <button class="text-slate-400 hover:text-primary-700">
+                      <i data-lucide="edit" class="w-5 h-5"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+        <!-- Recent Depreciation Runs -->
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-soft">
+          <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+            <div class="font-medium">Recent Depreciation Runs</div>
+            <div class="flex items-center gap-2">
+              <select class="rounded-lg border-slate-300 focus:border-primary focus:ring-primary text-sm">
+                <option>All Periods</option>
+                <option>This Year</option>
+                <option>Last Year</option>
+                <option>Custom Range</option>
+              </select>
+            </div>
+          </div>
+        
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200">
+              <thead class="bg-slate-50">
+                <tr>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Run ID</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Period</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Date Run</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Assets</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Total Depreciation</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                  <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-slate-200">
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <span class="font-medium text-primary-700 hover:text-primary-800">DEP-2025-07</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">July 2025</td>
+                  <td class="px-4 py-3 text-sm">Aug 1, 2025</td>
+                  <td class="px-4 py-3 text-sm">1,248</td>
+                  <td class="px-4 py-3 text-sm">$42,580.75</td>
+                  <td class="px-4 py-3 text-sm">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                      <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                      Posted
+                    </span>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-right">
+                    <button class="text-slate-400 hover:text-primary-700">
+                      <i data-lucide="file-text" class="w-5 h-5"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <span class="font-medium text-primary-700 hover:text-primary-800">DEP-2025-06</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">June 2025</td>
+                  <td class="px-4 py-3 text-sm">Jul 1, 2025</td>
+                  <td class="px-4 py-3 text-sm">1,242</td>
+                  <td class="px-4 py-3 text-sm">$42,105.50</td>
+                  <td class="px-4 py-3 text-sm">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                      <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                      Posted
+                    </span>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-right">
+                    <button class="text-slate-400 hover:text-primary-700">
+                      <i data-lucide="file-text" class="w-5 h-5"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <span class="font-medium text-primary-700 hover:text-primary-800">DEP-2025-05</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">May 2025</td>
+                  <td class="px-4 py-3 text-sm">Jun 1, 2025</td>
+                  <td class="px-4 py-3 text-sm">1,235</td>
+                  <td class="px-4 py-3 text-sm">$41,890.25</td>
+                  <td class="px-4 py-3 text-sm">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                      <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                      Posted
+                    </span>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-right">
+                    <button class="text-slate-400 hover:text-primary-700">
+                      <i data-lucide="file-text" class="w-5 h-5"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+          <div class="px-4 py-3 bg-slate-50 border-t border-slate-200 text-sm text-slate-500">
+            Showing 3 of 24 depreciation runs
+          </div>
+        </div>
+      </div>
+    `),
   '#/verification': () => Page('Verification', placeholder('Run physical verification sessions.')),
   '#/disposals': () => Page('Disposals', placeholder('Record asset disposals.')),
-  '#/procurement': () => Page('Procurement', placeholder('Link suppliers, POs, invoices.')),
+  '#/procurement': () => Page('Procurement Management', `
+      <div class="space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-xl font-bold text-primary-800">Procurement & Purchasing</h2>
+            <p class="text-slate-600 mt-1">Manage purchase orders, track requisitions, and monitor supplier performance.</p>
+          </div>
+        
+          <div class="flex items-center gap-2 rounded-xl border bg-white px-3 py-1.5 shadow-sm">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+            <input placeholder="Search purchase orders..." class="outline-none text-sm w-56" />
+          </div>
+        </div>
+      
+        <!-- Status Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">Open POs</div>
+                <div class="text-xl font-semibold">24</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                <i data-lucide="clipboard-list"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">Pending Approvals</div>
+                <div class="text-xl font-semibold">8</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+                <i data-lucide="clock"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">This Month Spend</div>
+                <div class="text-xl font-semibold">$42,580</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+                <i data-lucide="receipt"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-500">Active Suppliers</div>
+                <div class="text-xl font-semibold">36</div>
+              </div>
+              <div class="h-10 w-10 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600">
+                <i data-lucide="building"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft mb-6">
+          <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+            <i data-lucide="plus-circle" class="w-5 h-5"></i>
+            Quick Actions
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 hover:border-primary-200 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="h-10 w-10 rounded-lg bg-primary-50 flex items-center justify-center text-primary-700">
+                  <i data-lucide="file-plus"></i>
+                </div>
+                <h4 class="font-medium">New Purchase Order</h4>
+              </div>
+              <p class="text-sm text-slate-600 mb-3">Create a new purchase order for assets or services</p>
+              <button class="btn-primary w-full">
+                <i data-lucide="plus" class="w-4 h-4 mr-1"></i>
+                Create PO
+              </button>
+            </div>
+          
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 hover:border-primary-200 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="h-10 w-10 rounded-lg bg-primary-50 flex items-center justify-center text-primary-700">
+                  <i data-lucide="clipboard-check"></i>
+                </div>
+                <h4 class="font-medium">New Requisition</h4>
+              </div>
+              <p class="text-sm text-slate-600 mb-3">Submit a new purchase requisition for approval</p>
+              <button class="btn-primary w-full">
+                <i data-lucide="plus" class="w-4 h-4 mr-1"></i>
+                Create Requisition
+              </button>
+            </div>
+          
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 hover:border-primary-200 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="h-10 w-10 rounded-lg bg-primary-50 flex items-center justify-center text-primary-700">
+                  <i data-lucide="building"></i>
+                </div>
+                <h4 class="font-medium">Add Supplier</h4>
+              </div>
+              <p class="text-sm text-slate-600 mb-3">Register a new vendor or supplier to the system</p>
+              <button class="btn-primary w-full">
+                <i data-lucide="plus" class="w-4 h-4 mr-1"></i>
+                Add Supplier
+              </button>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Recent Purchase Orders -->
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-soft">
+          <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+            <div class="font-medium">Recent Purchase Orders</div>
+            <div class="flex items-center gap-2">
+              <select class="rounded-lg border-slate-300 focus:border-primary focus:ring-primary text-sm">
+                <option>All POs</option>
+                <option>Open</option>
+                <option>Closed</option>
+                <option>Cancelled</option>
+              </select>
+              <button class="btn">
+                <i data-lucide="filter" class="w-4 h-4 mr-1"></i>
+                Filter
+              </button>
+            </div>
+          </div>
+        
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200">
+              <thead class="bg-slate-50">
+                <tr>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">PO Number</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Supplier</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Date</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Amount</th>
+                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                  <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-slate-200">
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <span class="font-medium text-primary-700 hover:text-primary-800">PO-2025-0042</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">Dell Technologies</td>
+                  <td class="px-4 py-3 text-sm">Aug 15, 2025</td>
+                  <td class="px-4 py-3 text-sm">$24,850.00</td>
+                  <td class="px-4 py-3 text-sm">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                      <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                      Open
+                    </span>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-right">
+                    <button class="text-slate-400 hover:text-primary-700">
+                      <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <span class="font-medium text-primary-700 hover:text-primary-800">PO-2025-0041</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">Apple Inc.</td>
+                  <td class="px-4 py-3 text-sm">Aug 10, 2025</td>
+                  <td class="px-4 py-3 text-sm">$18,750.00</td>
+                  <td class="px-4 py-3 text-sm">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
+                      <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                      Pending Approval
+                    </span>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-right">
+                    <button class="text-slate-400 hover:text-primary-700">
+                      <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <span class="font-medium text-primary-700 hover:text-primary-800">PO-2025-0040</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">Herman Miller</td>
+                  <td class="px-4 py-3 text-sm">Aug 5, 2025</td>
+                  <td class="px-4 py-3 text-sm">$12,480.00</td>
+                  <td class="px-4 py-3 text-sm">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">
+                      <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                      Received
+                    </span>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-right">
+                    <button class="text-slate-400 hover:text-primary-700">
+                      <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+          <div class="px-4 py-3 bg-slate-50 border-t border-slate-200 text-sm text-slate-500">
+            Showing 3 of 24 purchase orders
+          </div>
+        </div>
+      
+        <!-- Supplier Performance -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft">
+          <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+            <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+            Supplier Performance
+          </h3>
+        
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="text-sm font-medium text-slate-700 mb-3">Top Suppliers by Spend</h4>
+              <div class="space-y-3">
+                <div class="flex items-center">
+                  <div class="w-1/3 text-sm">Dell Technologies</div>
+                  <div class="w-2/3">
+                    <div class="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-primary-600 rounded-full" style="width: 85%"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-1/3 text-sm">Apple Inc.</div>
+                  <div class="w-2/3">
+                    <div class="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-primary-600 rounded-full" style="width: 70%"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-1/3 text-sm">Herman Miller</div>
+                  <div class="w-2/3">
+                    <div class="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-primary-600 rounded-full" style="width: 55%"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-1/3 text-sm">Cisco Systems</div>
+                  <div class="w-2/3">
+                    <div class="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-primary-600 rounded-full" style="width: 40%"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-1/3 text-sm">Steelcase</div>
+                  <div class="w-2/3">
+                    <div class="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-primary-600 rounded-full" style="width: 30%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <div>
+              <h4 class="text-sm font-medium text-slate-700 mb-3">Supplier Rating</h4>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm">Dell Technologies</div>
+                  <div class="flex items-center">
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-slate-300"></i>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="text-sm">Apple Inc.</div>
+                  <div class="flex items-center">
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="text-sm">Herman Miller</div>
+                  <div class="flex items-center">
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-slate-300"></i>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="text-sm">Cisco Systems</div>
+                  <div class="flex items-center">
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-slate-300"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-slate-300"></i>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="text-sm">Steelcase</div>
+                  <div class="flex items-center">
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-slate-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `),
   '#/reports': () => Page('Reports', `
     <div class="space-y-6">
       <div class="flex flex-wrap items-center justify-between gap-4">
