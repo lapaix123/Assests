@@ -232,8 +232,10 @@ const routes = {
             }
           }
         },
-        responsive: true,
+        responsive: false,
         maintainAspectRatio: true,
+        width: 400,
+        height: 300,
         animation: {
           duration: 1000,
           easing: 'easeOutQuart'
@@ -331,6 +333,12 @@ const routes = {
     const locCtx = document.getElementById('chartLocations');
     new Chart(locCtx, {
       type: 'doughnut',
+      options: {
+        responsive: false,
+        maintainAspectRatio: true,
+        width: 400,
+        height: 300,
+      },
       data: {
         labels: ['Headquarters', 'Branch Office 1', 'Branch Office 2', 'Warehouse'],
         datasets: [{ 
@@ -397,8 +405,10 @@ const routes = {
             }
           }
         },
-        responsive: true,
-        maintainAspectRatio: false,
+        responsive: false,
+        maintainAspectRatio: true,
+        width: 400,
+        height: 300,
         animation: {
           animateRotate: true,
           animateScale: true,
@@ -412,9 +422,15 @@ const routes = {
     const condCtx = document.getElementById('chartConditions');
     new Chart(condCtx, {
       type: 'pie',
+      options: {
+        responsive: false,
+        maintainAspectRatio: true,
+        width: 400,
+        height: 300,
+      },
       data: {
         labels: ['Excellent', 'Good', 'Fair', 'Poor'],
-        datasets: [{ 
+        datasets: [{
           data: [420, 580, 180, 68],
           backgroundColor: [
             'rgba(16, 185, 129, 0.8)',
@@ -478,8 +494,10 @@ const routes = {
             }
           }
         },
-        responsive: true,
-        maintainAspectRatio: false,
+        responsive: false,
+        maintainAspectRatio: true,
+        width: 400,
+        height: 300,
         animation: {
           animateRotate: true,
           animateScale: true,
@@ -2386,8 +2404,10 @@ const routes = {
                   }
                 }
               },
-              responsive: true,
-              maintainAspectRatio: false,
+              responsive: false,
+              maintainAspectRatio: true,
+              width: 400,
+              height: 300,
               animation: {
                 animateRotate: true,
                 animateScale: true,
