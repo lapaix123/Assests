@@ -2961,8 +2961,693 @@ const routes = {
         </div>
       </div>
     `),
-  '#/verification': () => Page('Verification', placeholder('Run physical verification sessions.')),
-  '#/disposals': () => Page('Disposals', placeholder('Record asset disposals.')),
+  '#/verification': () => Page('Asset Verification', `
+        <div class="space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div>
+              <h2 class="text-xl font-bold text-primary-800">Asset Verification Management</h2>
+              <p class="text-slate-600 mt-1">Conduct physical verification of assets to ensure accuracy of asset register and location data.</p>
+            </div>
+        
+            <div class="flex items-center gap-2">
+              <button class="btn-primary">
+                <i data-lucide="play" class="w-4 h-4 mr-1"></i>
+                Start Verification
+              </button>
+              <button class="btn">
+                <i data-lucide="download" class="w-4 h-4 mr-1"></i>
+                Export Report
+              </button>
+            </div>
+          </div>
+      
+          <!-- Status Cards -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500">Total Assets</div>
+                  <div class="text-xl font-semibold">1,248</div>
+                </div>
+                <div class="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                  <i data-lucide="boxes"></i>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500">Verified</div>
+                  <div class="text-xl font-semibold">986</div>
+                </div>
+                <div class="h-10 w-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+                  <i data-lucide="check-circle"></i>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500">Pending</div>
+                  <div class="text-xl font-semibold">262</div>
+                </div>
+                <div class="h-10 w-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+                  <i data-lucide="clock"></i>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500">Discrepancies</div>
+                  <div class="text-xl font-semibold">37</div>
+                </div>
+                <div class="h-10 w-10 rounded-lg bg-red-50 flex items-center justify-center text-red-600">
+                  <i data-lucide="alert-triangle"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Verification Progress -->
+          <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft mb-6">
+            <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+              <i data-lucide="activity" class="w-5 h-5"></i>
+              Verification Progress
+            </h3>
+          
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <div class="mb-2 flex items-center justify-between">
+                  <div class="text-sm font-medium text-slate-700">Overall Progress</div>
+                  <div class="text-sm font-medium text-slate-700">79%</div>
+                </div>
+                <div class="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-primary-600 rounded-full" style="width: 79%"></div>
+                </div>
+              
+                <div class="mt-6 space-y-4">
+                  <div>
+                    <div class="mb-1 flex items-center justify-between">
+                      <div class="text-sm font-medium text-slate-700">IT Equipment</div>
+                      <div class="text-sm font-medium text-slate-700">92%</div>
+                    </div>
+                    <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-green-500 rounded-full" style="width: 92%"></div>
+                    </div>
+                  </div>
+                
+                  <div>
+                    <div class="mb-1 flex items-center justify-between">
+                      <div class="text-sm font-medium text-slate-700">Furniture</div>
+                      <div class="text-sm font-medium text-slate-700">68%</div>
+                    </div>
+                    <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-amber-500 rounded-full" style="width: 68%"></div>
+                    </div>
+                  </div>
+                
+                  <div>
+                    <div class="mb-1 flex items-center justify-between">
+                      <div class="text-sm font-medium text-slate-700">Machinery</div>
+                      <div class="text-sm font-medium text-slate-700">85%</div>
+                    </div>
+                    <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-blue-500 rounded-full" style="width: 85%"></div>
+                    </div>
+                  </div>
+                
+                  <div>
+                    <div class="mb-1 flex items-center justify-between">
+                      <div class="text-sm font-medium text-slate-700">Vehicles</div>
+                      <div class="text-sm font-medium text-slate-700">100%</div>
+                    </div>
+                    <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-green-500 rounded-full" style="width: 100%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+              <div>
+                <h4 class="text-sm font-medium text-slate-700 mb-3">Verification by Location</h4>
+                <div class="h-64">
+                  <!-- Placeholder for chart -->
+                  <div class="h-full w-full bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="text-slate-400 mb-2">
+                        <i data-lucide="bar-chart-2" class="w-10 h-10 mx-auto"></i>
+                      </div>
+                      <p class="text-slate-600">Location verification chart will be displayed here</p>
+                      <p class="text-xs text-slate-500 mt-1">Showing verification progress by location</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Verification Sessions -->
+          <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft mb-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-semibold text-primary-800 flex items-center gap-2">
+                <i data-lucide="scan-line" class="w-5 h-5"></i>
+                Verification Sessions
+              </h3>
+              <button class="btn">
+                <i data-lucide="plus" class="w-4 h-4 mr-1"></i>
+                New Session
+              </button>
+            </div>
+          
+            <div class="grid md:grid-cols-3 gap-4">
+              <div class="border border-slate-200 rounded-xl p-4 hover:border-primary-200 transition-colors">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="font-medium">Headquarters - Floor 3</h4>
+                  <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                    <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                    Active
+                  </span>
+                </div>
+                <div class="text-sm text-slate-500 mb-3">
+                  <div class="flex items-center gap-1">
+                    <i data-lucide="user" class="w-3.5 h-3.5"></i>
+                    <span>John Smith</span>
+                  </div>
+                  <div class="flex items-center gap-1 mt-1">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                    <span>Started: Aug 15, 2025</span>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="mb-1 flex items-center justify-between text-xs">
+                    <span>Progress</span>
+                    <span>68%</span>
+                  </div>
+                  <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary-600 rounded-full" style="width: 68%"></div>
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <button class="btn-primary text-xs py-1.5">
+                    <i data-lucide="play" class="w-3.5 h-3.5 mr-1"></i>
+                    Continue
+                  </button>
+                </div>
+              </div>
+            
+              <div class="border border-slate-200 rounded-xl p-4 hover:border-primary-200 transition-colors">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="font-medium">Warehouse - Section B</h4>
+                  <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
+                    <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                    Paused
+                  </span>
+                </div>
+                <div class="text-sm text-slate-500 mb-3">
+                  <div class="flex items-center gap-1">
+                    <i data-lucide="user" class="w-3.5 h-3.5"></i>
+                    <span>Sarah Johnson</span>
+                  </div>
+                  <div class="flex items-center gap-1 mt-1">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                    <span>Started: Aug 10, 2025</span>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="mb-1 flex items-center justify-between text-xs">
+                    <span>Progress</span>
+                    <span>42%</span>
+                  </div>
+                  <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary-600 rounded-full" style="width: 42%"></div>
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <button class="btn-primary text-xs py-1.5">
+                    <i data-lucide="play" class="w-3.5 h-3.5 mr-1"></i>
+                    Continue
+                  </button>
+                </div>
+              </div>
+            
+              <div class="border border-slate-200 rounded-xl p-4 hover:border-primary-200 transition-colors">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="font-medium">Branch Office - Floor 1</h4>
+                  <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                    <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                    Completed
+                  </span>
+                </div>
+                <div class="text-sm text-slate-500 mb-3">
+                  <div class="flex items-center gap-1">
+                    <i data-lucide="user" class="w-3.5 h-3.5"></i>
+                    <span>Mike Williams</span>
+                  </div>
+                  <div class="flex items-center gap-1 mt-1">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                    <span>Completed: Aug 5, 2025</span>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="mb-1 flex items-center justify-between text-xs">
+                    <span>Progress</span>
+                    <span>100%</span>
+                  </div>
+                  <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-green-500 rounded-full" style="width: 100%"></div>
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <button class="btn text-xs py-1.5">
+                    <i data-lucide="file-text" class="w-3.5 h-3.5 mr-1"></i>
+                    View Report
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Discrepancies -->
+          <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-soft">
+            <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+              <div class="font-medium">Discrepancies Found</div>
+              <div class="flex items-center gap-2">
+                <select class="rounded-lg border-slate-300 focus:border-primary focus:ring-primary text-sm">
+                  <option>All Discrepancies</option>
+                  <option>Missing Assets</option>
+                  <option>Location Mismatch</option>
+                  <option>Condition Issues</option>
+                  <option>Unresolved</option>
+                </select>
+                <button class="btn">
+                  <i data-lucide="filter" class="w-4 h-4 mr-1"></i>
+                  Filter
+                </button>
+              </div>
+            </div>
+        
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-slate-200">
+                <thead class="bg-slate-50">
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Asset</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Issue Type</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Expected</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Found</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-slate-200">
+                  <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <span class="font-medium text-primary-700 hover:text-primary-800">Dell Latitude 7420</span>
+                        <span class="ml-2 text-xs text-slate-500">AST-IT-0042</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">Location Mismatch</td>
+                    <td class="px-4 py-3 text-sm">HQ - Floor 2, Room 204</td>
+                    <td class="px-4 py-3 text-sm">HQ - Floor 3, Room 312</td>
+                    <td class="px-4 py-3 text-sm">
+                      <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                        Unresolved
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-sm text-right">
+                      <button class="text-slate-400 hover:text-primary-700">
+                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <span class="font-medium text-primary-700 hover:text-primary-800">HP LaserJet Printer</span>
+                        <span class="ml-2 text-xs text-slate-500">AST-IT-0043</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">Missing Asset</td>
+                    <td class="px-4 py-3 text-sm">HQ - Floor 1, Print Room</td>
+                    <td class="px-4 py-3 text-sm">Not Found</td>
+                    <td class="px-4 py-3 text-sm">
+                      <span class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-red-600"></span>
+                        Critical
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-sm text-right">
+                      <button class="text-slate-400 hover:text-primary-700">
+                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <span class="font-medium text-primary-700 hover:text-primary-800">Office Chair</span>
+                        <span class="ml-2 text-xs text-slate-500">AST-FN-0128</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">Condition Issue</td>
+                    <td class="px-4 py-3 text-sm">Good</td>
+                    <td class="px-4 py-3 text-sm">Damaged</td>
+                    <td class="px-4 py-3 text-sm">
+                      <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                        Resolved
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-sm text-right">
+                      <button class="text-slate-400 hover:text-primary-700">
+                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        
+            <div class="px-4 py-3 bg-slate-50 border-t border-slate-200 text-sm text-slate-500">
+              Showing 3 of 37 discrepancies
+            </div>
+          </div>
+        </div>
+      `),
+  '#/disposals': () => Page('Asset Disposals', `
+        <div class="space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div>
+              <h2 class="text-xl font-bold text-primary-800">Asset Disposal Management</h2>
+              <p class="text-slate-600 mt-1">Record and track asset disposals, sales, and write-offs with complete audit trail.</p>
+            </div>
+        
+            <div class="flex items-center gap-2">
+              <button class="btn-primary">
+                <i data-lucide="plus" class="w-4 h-4 mr-1"></i>
+                New Disposal
+              </button>
+              <button class="btn">
+                <i data-lucide="download" class="w-4 h-4 mr-1"></i>
+                Export
+              </button>
+            </div>
+          </div>
+      
+          <!-- Status Cards -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500">Total Disposals</div>
+                  <div class="text-xl font-semibold">124</div>
+                </div>
+                <div class="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                  <i data-lucide="recycle"></i>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500">Pending Approval</div>
+                  <div class="text-xl font-semibold">8</div>
+                </div>
+                <div class="h-10 w-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+                  <i data-lucide="clock"></i>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500">Total Recovery</div>
+                  <div class="text-xl font-semibold">$86,420</div>
+                </div>
+                <div class="h-10 w-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+                  <i data-lucide="dollar-sign"></i>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-soft">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500">This Year</div>
+                  <div class="text-xl font-semibold">42 assets</div>
+                </div>
+                <div class="h-10 w-10 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600">
+                  <i data-lucide="calendar"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Disposal Methods Chart -->
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft">
+              <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+                <i data-lucide="pie-chart" class="w-5 h-5"></i>
+                Disposal by Method
+              </h3>
+              <div class="h-64">
+                <!-- Placeholder for chart -->
+                <div class="h-full w-full bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-center">
+                  <div class="text-center">
+                    <div class="text-slate-400 mb-2">
+                      <i data-lucide="pie-chart" class="w-10 h-10 mx-auto"></i>
+                    </div>
+                    <p class="text-slate-600">Disposal methods chart will be displayed here</p>
+                    <p class="text-xs text-slate-500 mt-1">Showing distribution of disposal methods</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft">
+              <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+                <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                Disposal by Category
+              </h3>
+              <div class="h-64">
+                <!-- Placeholder for chart -->
+                <div class="h-full w-full bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-center">
+                  <div class="text-center">
+                    <div class="text-slate-400 mb-2">
+                      <i data-lucide="bar-chart-2" class="w-10 h-10 mx-auto"></i>
+                    </div>
+                    <p class="text-slate-600">Asset category chart will be displayed here</p>
+                    <p class="text-xs text-slate-500 mt-1">Showing distribution of disposed assets by category</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Quick Disposal Form -->
+          <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft mb-6">
+            <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+              <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+              Quick Disposal Form
+            </h3>
+          
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-1">Asset</label>
+                  <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                    <option>Select an asset...</option>
+                    <option>Dell Latitude 7420 (AST-IT-0042)</option>
+                    <option>HP LaserJet Printer (AST-IT-0043)</option>
+                    <option>MacBook Pro 16" (AST-IT-0044)</option>
+                    <option>Office Chair (AST-FN-0128)</option>
+                    <option>Conference Table (AST-FN-0129)</option>
+                  </select>
+                </div>
+              
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-1">Disposal Method</label>
+                  <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                    <option>Select method...</option>
+                    <option>Sale</option>
+                    <option>Donation</option>
+                    <option>Recycling</option>
+                    <option>Trade-in</option>
+                    <option>Write-off</option>
+                    <option>Destruction</option>
+                  </select>
+                </div>
+              
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-1">Disposal Date</label>
+                  <input type="date" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                </div>
+              </div>
+            
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-1">Reason for Disposal</label>
+                  <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                    <option>Select reason...</option>
+                    <option>Obsolete</option>
+                    <option>Damaged beyond repair</option>
+                    <option>End of useful life</option>
+                    <option>Upgrade</option>
+                    <option>Excess inventory</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-1">Recovery Amount</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <span class="text-slate-500">$</span>
+                    </div>
+                    <input type="number" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary pl-7">
+                  </div>
+                </div>
+              
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-1">Recipient/Buyer</label>
+                  <input type="text" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                </div>
+              </div>
+            
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-1">Approver</label>
+                  <select class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary">
+                    <option>Select approver...</option>
+                    <option>John Smith (Finance)</option>
+                    <option>Sarah Johnson (IT)</option>
+                    <option>Mike Williams (Operations)</option>
+                    <option>Lisa Brown (Accounting)</option>
+                  </select>
+                </div>
+              
+                <div>
+                  <label class="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+                  <textarea rows="4" class="w-full rounded-lg border-slate-300 focus:border-primary focus:ring-primary"></textarea>
+                </div>
+              </div>
+            </div>
+          
+            <div class="mt-6 flex justify-end gap-2">
+              <button class="btn">Cancel</button>
+              <button class="btn-primary">Submit Disposal</button>
+            </div>
+          </div>
+      
+          <!-- Recent Disposals -->
+          <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-soft">
+            <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+              <div class="font-medium">Recent Disposals</div>
+              <div class="flex items-center gap-2">
+                <select class="rounded-lg border-slate-300 focus:border-primary focus:ring-primary text-sm">
+                  <option>All Disposals</option>
+                  <option>Sales</option>
+                  <option>Donations</option>
+                  <option>Recycling</option>
+                  <option>Write-offs</option>
+                </select>
+                <button class="btn">
+                  <i data-lucide="filter" class="w-4 h-4 mr-1"></i>
+                  Filter
+                </button>
+              </div>
+            </div>
+        
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-slate-200">
+                <thead class="bg-slate-50">
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Asset</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Method</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Date</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Recovery</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-slate-200">
+                  <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <span class="font-medium text-primary-700 hover:text-primary-800">HP EliteBook 840</span>
+                        <span class="ml-2 text-xs text-slate-500">AST-IT-0038</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">Sale</td>
+                    <td class="px-4 py-3 text-sm">Aug 15, 2025</td>
+                    <td class="px-4 py-3 text-sm">$450.00</td>
+                    <td class="px-4 py-3 text-sm">
+                      <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                        Completed
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-sm text-right">
+                      <button class="text-slate-400 hover:text-primary-700">
+                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <span class="font-medium text-primary-700 hover:text-primary-800">Office Chairs (5)</span>
+                        <span class="ml-2 text-xs text-slate-500">Multiple</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">Donation</td>
+                    <td class="px-4 py-3 text-sm">Aug 10, 2025</td>
+                    <td class="px-4 py-3 text-sm">$0.00</td>
+                    <td class="px-4 py-3 text-sm">
+                      <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                        Completed
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-sm text-right">
+                      <button class="text-slate-400 hover:text-primary-700">
+                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <span class="font-medium text-primary-700 hover:text-primary-800">Dell OptiPlex 7080</span>
+                        <span class="ml-2 text-xs text-slate-500">AST-IT-0029</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">Recycling</td>
+                    <td class="px-4 py-3 text-sm">Aug 5, 2025</td>
+                    <td class="px-4 py-3 text-sm">$0.00</td>
+                    <td class="px-4 py-3 text-sm">
+                      <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                        Pending Approval
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-sm text-right">
+                      <button class="text-slate-400 hover:text-primary-700">
+                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        
+            <div class="px-4 py-3 bg-slate-50 border-t border-slate-200 text-sm text-slate-500">
+              Showing 3 of 124 disposals
+            </div>
+          </div>
+        </div>
+      `),
   '#/procurement': () => Page('Procurement Management', `
       <div class="space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
