@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Assets Management — Demo (Fragments)</title>
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#2563eb' }
+          },
+          boxShadow: {
+            soft: '0 10px 25px rgba(2, 6, 23, 0.08)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js (for dashboard demo) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    .nav-item { display:flex; align-items:center; gap:.6rem; padding:.55rem .65rem; border-radius:.75rem; color:#0f172a; }
+    .nav-item:hover { background:#f1f5f9; }
+    .nav-item.active { background:#e2e8f0; font-weight:600; }
+    .sub-item { display:block; padding:.4rem .5rem; border-radius:.5rem; color:#334155; }
+    .sub-item:hover { background:#f1f5f9; }
+    .btn { padding:.5rem .75rem; border-radius:.75rem; border:1px solid #cbd5e1; background:#fff; }
+    .btn:hover { background:#f8fafc; border-color:#94a3b8; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+  <!-- Mount points for fragments -->
+  <div id="topbarMount"></div>
+
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-12 gap-4 mt-4">
+      <div id="sidebarMount" class="col-span-12 lg:col-span-3 xl:col-span-2"></div>
+
+      <main class="col-span-12 lg:col-span-9 xl:col-span-10">
+        <div id="mainMount"></div>
+      </main>
+    </div>
+  </div>
+
+  <div id="footerMount" class="mt-6"></div>
+
+  <script src="../js/app.js"></script>
+</body>
+</html>

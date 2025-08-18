@@ -1,0 +1,89 @@
+<aside id="sidebar" class="col-span-12 lg:col-span-3 xl:col-span-2 bg-white border border-slate-200 rounded-2xl shadow-soft p-3 lg:sticky lg:top-16 h-max hidden lg:block">
+  <nav class="space-y-2 text-sm" id="sidebarNav">
+    <div class="px-2 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Main</div>
+    <a data-route="#/dashboard" class="nav-item">
+      <i data-lucide="layout-dashboard"></i><span>Dashboard</span>
+    </a>
+
+    <div class="group">
+      <button class="nav-item justify-between w-full">
+        <span class="inline-flex items-center gap-2">
+          <i data-lucide="boxes"></i><span>Assets</span>
+        </span>
+        <i class="chev" data-lucide="chevron-down"></i>
+      </button>
+      <div class="ml-9 mt-1 space-y-1 hidden group-[.open]:block">
+        <a data-route="#/assets/register" class="sub-item">Register</a>
+        <a data-route="#/assets/add" class="sub-item">Add Asset</a>
+      </div>
+    </div>
+
+    <a data-route="#/maintenance" class="nav-item">
+      <i data-lucide="wrench"></i><span>Maintenance</span>
+    </a>
+    <a data-route="#/depreciation" class="nav-item">
+      <i data-lucide="percent"></i><span>Depreciation</span>
+    </a>
+    <a data-route="#/verification" class="nav-item">
+      <i data-lucide="scan-line"></i><span>Verification</span>
+    </a>
+    <a data-route="#/disposals" class="nav-item">
+      <i data-lucide="recycle"></i><span>Disposals</span>
+    </a>
+    <a data-route="#/procurement" class="nav-item">
+      <i data-lucide="truck"></i><span>Procurement</span>
+    </a>
+    <a data-route="#/reports" class="nav-item">
+      <i data-lucide="bar-chart-3"></i><span>Reports</span>
+    </a>
+    <a data-route="#/admin" class="nav-item">
+      <i data-lucide="settings"></i><span>Admin / Settings</span>
+    </a>
+
+    <!-- Lookups -->
+    <div class="px-2 pt-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Lookups</div>
+
+    <a data-route="#/lookups/categories" class="nav-item">
+      <i data-lucide="layers"></i><span>Categories & Classes</span>
+    </a>
+    <a data-route="#/lookups/conditions" class="nav-item">
+      <i data-lucide="thermometer"></i><span>Conditions</span>
+    </a>
+    <a data-route="#/lookups/statuses" class="nav-item">
+      <i data-lucide="list-checks"></i><span>Statuses</span>
+    </a>
+    <a data-route="#/lookups/dep-methods" class="nav-item">
+      <i data-lucide="calculator"></i><span>Depreciation Methods</span>
+    </a>
+
+    <a data-route="#/lookups/branch" class="nav-item">
+      <i data-lucide="map-pin"></i><span>Branch / Site</span>
+    </a>
+    <a data-route="#/lookups/building" class="nav-item">
+      <i data-lucide="building-2"></i><span>Building / Floor / Room</span>
+    </a>
+
+    <a data-route="#/lookups/departments" class="nav-item">
+      <i data-lucide="users"></i><span>Departments</span>
+    </a>
+    <a data-route="#/lookups/cost-centers" class="nav-item">
+      <i data-lucide="wallet-cards"></i><span>Cost Centers / Projects</span>
+    </a>
+    <a data-route="#/lookups/funding" class="nav-item">
+      <i data-lucide="hand-coins"></i><span>Funding Sources</span>
+    </a>
+
+    <a data-route="#/lookups/suppliers" class="nav-item">
+      <i data-lucide="factory"></i><span>Suppliers</span>
+    </a>
+    <a data-route="#/lookups/warranty" class="nav-item">
+      <i data-lucide="badge-check"></i><span>Warranty Types</span>
+    </a>
+    <a data-route="#/lookups/disposal" class="nav-item">
+      <i data-lucide="trash-2"></i><span>Disposal Methods</span>
+    </a>
+    <a data-route="#/lookups/maint-types" class="nav-item">
+      <i data-lucide="wrench"></i><span>Maintenance Types</span>
+    </a>
+  </nav>
+</aside>

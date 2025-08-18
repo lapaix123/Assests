@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assets Management — Dashboard</title>
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#2563eb', 50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a' }
+          },
+          boxShadow: {
+            soft: '0 10px 25px rgba(2, 6, 23, 0.08)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Icons (Lucide) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js for pretty demo charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* Smooth scrollbar (optional) */
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    
+    /* Navigation styles */
+    .nav-item {
+      display:flex; align-items:center; gap:.625rem; padding:.6rem .75rem; border-radius:.75rem; color:#0f172a;
+    }
+    .nav-item:hover { background: #f1f5f9; }
+    .nav-item.active { background:#e2e8f0; font-weight:600; }
+    .sub-item { display:block; padding:.4rem .5rem; border-radius:.5rem; color:#334155; }
+    .sub-item:hover { background:#f1f5f9; }
+    .btn { padding:.5rem .75rem; border-radius:.75rem; border:1px solid #cbd5e1; background:#fff; }
+    .btn:hover { background:#f8fafc; border-color:#94a3b8; }
+    .group.open > button .chev { transform: rotate(180deg); transition: transform .2s; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+  <!-- Topbar -->
+  <div id="topbarMount"></div>
+
+  <!-- Layout -->
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-12 gap-4 mt-4">
+      <!-- Sidebar -->
+      <div id="sidebarMount" class="col-span-12 lg:col-span-3 xl:col-span-2"></div>
+
+      <!-- Main content -->
+      <main class="col-span-12 lg:col-span-9 xl:col-span-10">
+        <div id="mainMount"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="footerMount" class="mt-6"></div>
+
+  <!-- Load app.js -->
+  <script src="../js/app.js"></script>
+</body>
+</html>

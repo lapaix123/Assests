@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assets Management — Demo</title>
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#2563eb', 50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a' }
+          },
+          boxShadow: {
+            soft: '0 10px 25px rgba(2, 6, 23, 0.08)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Icons (Lucide) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js for pretty demo charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* Smooth scrollbar (optional) */
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+  <!-- Topbar -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button id="sidebarToggle" class="lg:hidden p-2 rounded-md hover:bg-slate-100">
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <i data-lucide="box"></i>
+          </span>
+          <span class="font-semibold">Assets Management</span>
+          <span class="text-xs text-slate-500">Demo</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="hidden md:flex items-center gap-2 rounded-xl border bg-white px-3 py-1.5">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+          <input placeholder="Quick search…" class="outline-none text-sm w-56" />
+        </div>
+        <button class="p-2 rounded-lg hover:bg-slate-100">
+          <i data-lucide="bell"></i>
+        </button>
+        <div class="h-8 w-8 rounded-full bg-gradient-to-br from-primary/80 to-primary shadow-soft"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Layout -->
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-12 gap-4 mt-4">
+      <!-- Sidebar -->
+      <aside id="sidebar" class="col-span-12 lg:col-span-3 xl:col-span-2 bg-white border border-slate-200 rounded-2xl shadow-soft p-3 lg:sticky lg:top-16 h-max hidden lg:block">
+        <nav class="space-y-2 text-sm" id="sidebarNav">
+          <div class="px-2 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Main</div>
+          <a data-route="#/dashboard" class="nav-item">
+            <i data-lucide="layout-dashboard"></i><span>Dashboard</span>
+          </a>
+
+          <div class="group">
+            <button class="nav-item justify-between w-full">
+              <span class="inline-flex items-center gap-2">
+                <i data-lucide="boxes"></i><span>Assets</span>
+              </span>
+              <i class="chev" data-lucide="chevron-down"></i>
+            </button>
+            <div class="ml-9 mt-1 space-y-1 hidden group-[.open]:block">
+              <a data-route="#/assets/register" class="sub-item">Register</a>
+              <a data-route="#/assets/add" class="sub-item">Add Asset</a>
+            </div>
+          </div>
+
+          <a data-route="#/maintenance" class="nav-item">
+            <i data-lucide="wrench"></i><span>Maintenance</span>
+          </a>
+          <a data-route="#/depreciation" class="nav-item">
+            <i data-lucide="percent"></i><span>Depreciation</span>
+          </a>
+          <a data-route="#/verification" class="nav-item">
+            <i data-lucide="scan-line"></i><span>Verification</span>
+          </a>
+          <a data-route="#/disposals" class="nav-item">
+            <i data-lucide="recycle"></i><span>Disposals</span>
+          </a>
+          <a data-route="#/procurement" class="nav-item">
+            <i data-lucide="truck"></i><span>Procurement</span>
+          </a>
+          <a data-route="#/reports" class="nav-item">
+            <i data-lucide="bar-chart-3"></i><span>Reports</span>
+          </a>
+          <a data-route="#/admin" class="nav-item">
+            <i data-lucide="settings"></i><span>Admin / Settings</span>
+          </a>
+
+          <!-- Lookups -->
+          <div class="px-2 pt-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Lookups</div>
+
+          <a data-route="#/lookups/categories" class="nav-item">
+            <i data-lucide="layers"></i><span>Categories & Classes</span>
+          </a>
+          <a data-route="#/lookups/conditions" class="nav-item">
+            <i data-lucide="thermometer"></i><span>Conditions</span>
+          </a>
+          <a data-route="#/lookups/statuses" class="nav-item">
+            <i data-lucide="list-checks"></i><span>Statuses</span>
+          </a>
+          <a data-route="#/lookups/dep-methods" class="nav-item">
+            <i data-lucide="calculator"></i><span>Depreciation Methods</span>
+          </a>
+
+          <a data-route="#/lookups/branch" class="nav-item">
+            <i data-lucide="map-pin"></i><span>Branch / Site</span>
+          </a>
+          <a data-route="#/lookups/building" class="nav-item">
+            <i data-lucide="building-2"></i><span>Building / Floor / Room</span>
+          </a>
+
+          <a data-route="#/lookups/departments" class="nav-item">
+            <i data-lucide="users"></i><span>Departments</span>
+          </a>
+          <a data-route="#/lookups/cost-centers" class="nav-item">
+            <i data-lucide="wallet-cards"></i><span>Cost Centers / Projects</span>
+          </a>
+          <a data-route="#/lookups/funding" class="nav-item">
+            <i data-lucide="hand-coins"></i><span>Funding Sources</span>
+          </a>
+
+          <a data-route="#/lookups/suppliers" class="nav-item">
+            <i data-lucide="factory"></i><span>Suppliers</span>
+          </a>
+          <a data-route="#/lookups/warranty" class="nav-item">
+            <i data-lucide="badge-check"></i><span>Warranty Types</span>
+          </a>
+          <a data-route="#/lookups/disposal" class="nav-item">
+            <i data-lucide="trash-2"></i><span>Disposal Methods</span>
+          </a>
+          <a data-route="#/lookups/maint-types" class="nav-item">
+            <i data-lucide="wrench"></i><span>Maintenance Types</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <main class="col-span-12 lg:col-span-9 xl:col-span-10">
+        <!-- Page header -->
+        <div id="pageHeader" class="mb-4">
+          <!-- Filled by JS -->
+        </div>
+
+        <!-- Content card -->
+        <section class="bg-white border border-slate-200 rounded-2xl shadow-soft p-4 md:p-6">
+          <div id="app"><!-- Routed content goes here --></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Templates & Router -->
+  <script>
+    // Utility: icon refresh
+    function refreshIcons(){ window.lucide && window.lucide.createIcons(); }
+
+    // Sidebar helpers
+    function activateNav(route) {
+      document.querySelectorAll('[data-route]').forEach(a => {
+        const isActive = a.getAttribute('data-route') === route;
+        a.classList.toggle('active', isActive);
+      });
+    }
+
+    // Basic components
+    const Page = (title, content) => {
+      document.getElementById('pageHeader').innerHTML = `
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-bold">${title}</h1>
+          <div class="text-sm text-slate-500">Prototype</div>
+        </div>`;
+      document.getElementById('app').innerHTML = content;
+      refreshIcons();
+    };
+
+    // DASHBOARD content (pretty)
+    function dashboardView() {
+      const cards = `
+      <div class="grid gap-4 md:gap-6 grid-cols-2 md:grid-cols-4">
+        ${metricCard('Total Assets', '1,248', 'boxes')}
+        ${metricCard('Net Book Value', '$ 3,420,900', 'banknote')}
+        ${metricCard('Due Maintenance', '37', 'wrench')}
+        ${metricCard('Overdue Verifications', '12', 'scan-line')}
+      </div>`;
+
+      const charts = `
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-6">
+        <div class="col-span-1 xl:col-span-2 bg-slate-50 rounded-xl p-4">
+          <h3 class="font-semibold mb-3">Assets by Category</h3>
+          <canvas id="chartCategories" height="120"></canvas>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-4">
+          <h3 class="font-semibold mb-3">Maintenance Due (Next 30 days)</h3>
+          <canvas id="chartMaintenance" height="120"></canvas>
+        </div>
+      </div>`;
+
+      const table = `
+      <div class="mt-6">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-semibold">Recent Activity</h3>
+          <button class="px-3 py-1.5 text-sm rounded-lg bg-primary text-white hover:bg-primary/90">View all</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead>
+              <tr class="text-left text-slate-500 border-b">
+                <th class="py-2 pr-4">When</th>
+                <th class="py-2 pr-4">Action</th>
+                <th class="py-2 pr-4">Object</th>
+                <th class="py-2 pr-4">By</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              ${activityRow('Today 09:20', 'Verified asset', 'AST-00982 — HP EliteBook', 'Alice')}
+              ${activityRow('Yesterday 16:03', 'Scheduled maintenance', 'GEN-00341 — Generator', 'Bob')}
+              ${activityRow('Aug 15', 'Added new asset', 'FUR-01022 — Office Desk', 'Diane')}
+              ${activityRow('Aug 14', 'Posted depreciation', 'Batch 2025-08', 'System')}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+
+      Page('Dashboard', cards + charts + table);
+
+      // Charts demo data
+      const catCtx = document.getElementById('chartCategories');
+      new Chart(catCtx, {
+        type: 'bar',
+        data: {
+          labels: ['IT', 'Furniture', 'Vehicles', 'Buildings', 'Machinery'],
+          datasets: [{ label: 'Assets', data: [420, 310, 70, 12, 436] }]
+        },
+        options: { responsive: true, plugins:{ legend:{ display:false }}, scales:{ y:{ beginAtZero:true } } }
+      });
+
+      const maintCtx = document.getElementById('chartMaintenance');
+      new Chart(maintCtx, {
+        type: 'line',
+        data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+          datasets: [{ label: 'Tasks', data: [6, 12, 9, 10], tension: .3, fill: false }]
+        },
+        options: { responsive: true, plugins:{ legend:{ display:false }}, scales:{ y:{ beginAtZero:true } } }
+      });
+    }
+
+    const metricCard = (label, value, icon) => `
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-soft">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <i data-lucide="${icon}"></i>
+          </span>
+          <div>
+            <div class="text-xs text-slate-500">${label}</div>
+            <div class="text-xl font-semibold">${value}</div>
+          </div>
+        </div>
+      </div>`;
+
+    const activityRow = (when, action, object, by) => `
+      <tr>
+        <td class="py-2 pr-4">${when}</td>
+        <td class="py-2 pr-4">${action}</td>
+        <td class="py-2 pr-4">${object}</td>
+        <td class="py-2 pr-4">${by}</td>
+      </tr>`;
+
+    // Generic placeholder pages
+    const placeholder = (title, intro, buttons = '') => `
+      <div class="space-y-4">
+        <p class="text-slate-600">${intro}</p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="rounded-xl border border-slate-200 p-4 bg-slate-50">
+            <h3 class="font-semibold mb-2">Quick actions</h3>
+            <div class="flex flex-wrap gap-2">${buttons || `
+              <button class="btn">Add</button>
+              <button class="btn">Import CSV</button>
+              <button class="btn">Export</button>
+            `}</div>
+          </div>
+          <div class="rounded-xl border border-slate-200 p-4">
+            <h3 class="font-semibold mb-2">Coming soon</h3>
+            <ul class="list-disc ml-5 text-slate-600">
+              <li>Filters, tables, and forms</li>
+              <li>Role-based access</li>
+              <li>API integration</li>
+            </ul>
+          </div>
+        </div>
+      </div>`;
+
+    // Routes map
+    const routes = {
+      '#/dashboard': () => dashboardView(),
+
+      '#/assets/register': () => Page('Asset Register', placeholder(
+        'Asset Register',
+        'Browse and filter all assets. Use advanced filters, bulk actions, and export.',
+        `<button class="btn" onclick="location.hash='#/assets/add'">Add Asset</button>
+         <button class="btn">Import CSV</button>
+         <button class="btn">Export XLSX</button>`
+      )),
+      '#/assets/add': () => Page('Add Asset', `
+        <form class="grid md:grid-cols-2 gap-4">
+          ${textField('Asset Name')}
+          ${textField('Asset Tag Number')}
+          ${textField('Category')}
+          ${textField('Model')}
+          ${textField('Serial Number')}
+          ${textField('Department')}
+          ${textField('Location (Branch / Building / Room)')}
+          ${textField('Acquisition Date', 'date')}
+          ${textField('Acquisition Cost', 'number')}
+          ${selectField('Depreciation Method', ['Straight-line','Reducing balance'])}
+          ${textField('Useful Life (years)', 'number')}
+          <div class="md:col-span-2">
+            <button type="button" class="btn">Save (demo)</button>
+          </div>
+        </form>
+      `),
+
+      '#/maintenance': () => Page('Maintenance', placeholder(
+        'Maintenance',
+        'Plan, assign, and track maintenance work orders and schedules.'
+      )),
+      '#/depreciation': () => Page('Depreciation', placeholder(
+        'Depreciation',
+        'Configure methods and post depreciation runs by period.'
+      )),
+      '#/verification': () => Page('Verification', placeholder(
+        'Verification',
+        'Run physical verification sessions using QR/barcode scanning.'
+      )),
+      '#/disposals': () => Page('Disposals', placeholder(
+        'Disposals',
+        'Request, approve, and record disposals with method and proceeds.'
+      )),
+      '#/procurement': () => Page('Procurement', placeholder(
+        'Procurement',
+        'Link suppliers, POs, invoices, warranties to your assets.'
+      )),
+      '#/reports': () => Page('Reports', placeholder(
+        'Reports',
+        'Generate NBV, aging, maintenance, verification, and disposal reports.'
+      )),
+      '#/admin': () => Page('Admin / Settings', placeholder(
+        'Admin / Settings',
+        'Manage roles, numbering sequences, custom fields, and notifications.'
+      )),
+
+      // Lookups
+      '#/lookups/categories': () => Page('Lookups — Categories & Classes', placeholder('Lookups', 'CRUD for asset categories and classes.')),
+      '#/lookups/conditions': () => Page('Lookups — Conditions', placeholder('Lookups', 'CRUD for asset condition values.')),
+      '#/lookups/statuses': () => Page('Lookups — Statuses', placeholder('Lookups', 'CRUD for asset statuses.')),
+      '#/lookups/dep-methods': () => Page('Lookups — Depreciation Methods', placeholder('Lookups', 'CRUD for depreciation methods.')),
+
+      '#/lookups/branch': () => Page('Lookups — Branch / Site', placeholder('Lookups', 'CRUD for branches/sites.')),
+      '#/lookups/building': () => Page('Lookups — Building / Floor / Room', placeholder('Lookups', 'CRUD for location hierarchy.')),
+
+      '#/lookups/departments': () => Page('Lookups — Departments', placeholder('Lookups', 'CRUD for departments.')),
+      '#/lookups/cost-centers': () => Page('Lookups — Cost Centers / Projects', placeholder('Lookups', 'CRUD for cost centers & projects.')),
+      '#/lookups/funding': () => Page('Lookups — Funding Sources', placeholder('Lookups', 'CRUD for funding sources.')),
+
+      '#/lookups/suppliers': () => Page('Lookups — Suppliers', placeholder('Lookups', 'CRUD for suppliers.')),
+      '#/lookups/warranty': () => Page('Lookups — Warranty Types', placeholder('Lookups', 'CRUD for warranty types.')),
+      '#/lookups/disposal': () => Page('Lookups — Disposal Methods', placeholder('Lookups', 'CRUD for disposal methods.')),
+      '#/lookups/maint-types': () => Page('Lookups — Maintenance Types', placeholder('Lookups', 'CRUD for maintenance types.')),
+    };
+
+    // Field helpers
+    function textField(label, type='text'){
+      const id = label.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+      return `
+        <label class="block">
+          <span class="text-sm text-slate-600">${label}</span>
+          <input type="${type}" id="${id}" class="mt-1 w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary" />
+        </label>`;
+    }
+    function selectField(label, options){
+      const id = label.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+      return `
+        <label class="block">
+          <span class="text-sm text-slate-600">${label}</span>
+          <select id="${id}" class="mt-1 w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">
+            ${options.map(o=>`<option>${o}</option>`).join('')}
+          </select>
+        </label>`;
+    }
+
+    // Router
+    function renderRoute() {
+      const hash = location.hash || '#/dashboard';
+      // Open/close Assets group when navigating under it
+      document.querySelectorAll('.group').forEach(g => g.classList.remove('open'));
+      if (hash.startsWith('#/assets/')) {
+        const assetsGroup = document.querySelector('.group');
+        assetsGroup && assetsGroup.classList.add('open');
+      }
+      // Load page
+      (routes[hash] || routes['#/dashboard'])();
+      activateNav(hash);
+    }
+    window.addEventListener('hashchange', renderRoute);
+    window.addEventListener('load', () => {
+      renderRoute();
+      refreshIcons();
+    });
+
+    // Sidebar interactions
+    document.getElementById('sidebarToggle').addEventListener('click', () => {
+      const sb = document.getElementById('sidebar');
+      sb.classList.toggle('hidden');
+      sb.classList.toggle('absolute');
+      sb.classList.toggle('z-50');
+      sb.classList.toggle('top-16');
+      sb.classList.toggle('left-0');
+      sb.classList.toggle('right-0');
+    });
+
+    // Delegated nav clicks
+    document.getElementById('sidebarNav').addEventListener('click', (e) => {
+      const a = e.target.closest('[data-route]');
+      const groupBtn = e.target.closest('.group > button');
+      if (groupBtn) {
+        groupBtn.parentElement.classList.toggle('open');
+        return;
+      }
+      if (a) {
+        e.preventDefault();
+        location.hash = a.getAttribute('data-route');
+        if (window.innerWidth < 1024) {
+          document.getElementById('sidebar').classList.add('hidden');
+        }
+      }
+    });
+
+    // Styling helpers for nav items
+    const style = document.createElement('style');
+    style.textContent = `
+      .nav-item {
+        display:flex; align-items:center; gap:.625rem; padding:.6rem .75rem; border-radius:.75rem; color:#0f172a;
+      }
+      .nav-item:hover { background: #f1f5f9; }
+      .nav-item.active { background:#e2e8f0; font-weight:600; }
+      .sub-item { display:block; padding:.4rem .5rem; border-radius:.5rem; color:#334155; }
+      .sub-item:hover { background:#f1f5f9; }
+      .btn { padding:.5rem .75rem; border-radius:.75rem; border:1px solid #cbd5e1; background:#fff; }
+      .btn:hover { background:#f8fafc; border-color:#94a3b8; }
+      .group.open > button .chev { transform: rotate(180deg); transition: transform .2s; }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
