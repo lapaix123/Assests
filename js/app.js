@@ -4260,7 +4260,466 @@ const routes = {
       </div>
     </div>
   `),
-  '#/admin': () => Page('Admin / Settings', placeholder('Roles, sequences, custom fields.')),
+  '#/admin': () => Page('Admin / Settings', `
+        <div class="space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div>
+              <h2 class="text-xl font-bold text-primary-800">System Administration</h2>
+              <p class="text-slate-600 mt-1">Configure system settings, manage users, roles, and customize fields.</p>
+            </div>
+          </div>
+      
+          <!-- Admin Tabs -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-soft overflow-hidden">
+            <div class="border-b border-slate-200">
+              <nav class="flex flex-wrap -mb-px">
+                <button class="inline-flex items-center h-10 px-4 py-2 text-sm font-medium text-primary-800 border-b-2 border-primary-600">
+                  <i data-lucide="users" class="w-4 h-4 mr-2"></i>
+                  Users & Roles
+                </button>
+                <button class="inline-flex items-center h-10 px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 hover:border-slate-300 border-b-2 border-transparent">
+                  <i data-lucide="settings" class="w-4 h-4 mr-2"></i>
+                  System Settings
+                </button>
+                <button class="inline-flex items-center h-10 px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 hover:border-slate-300 border-b-2 border-transparent">
+                  <i data-lucide="layout" class="w-4 h-4 mr-2"></i>
+                  Custom Fields
+                </button>
+                <button class="inline-flex items-center h-10 px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 hover:border-slate-300 border-b-2 border-transparent">
+                  <i data-lucide="list-ordered" class="w-4 h-4 mr-2"></i>
+                  Numbering Sequences
+                </button>
+                <button class="inline-flex items-center h-10 px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 hover:border-slate-300 border-b-2 border-transparent">
+                  <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+                  Notifications
+                </button>
+                <button class="inline-flex items-center h-10 px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 hover:border-slate-300 border-b-2 border-transparent">
+                  <i data-lucide="history" class="w-4 h-4 mr-2"></i>
+                  Audit Logs
+                </button>
+              </nav>
+            </div>
+          
+            <!-- Users & Roles Tab Content -->
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="font-semibold text-primary-800">User Management</h3>
+                <div class="flex items-center gap-2">
+                  <button class="btn-primary">
+                    <i data-lucide="user-plus" class="w-4 h-4 mr-1"></i>
+                    Add User
+                  </button>
+                  <button class="btn">
+                    <i data-lucide="upload" class="w-4 h-4 mr-1"></i>
+                    Import
+                  </button>
+                </div>
+              </div>
+            
+              <!-- User Search & Filter -->
+              <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                <div class="flex items-center gap-2 rounded-xl border bg-white px-3 py-1.5 shadow-sm">
+                  <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+                  <input placeholder="Search users..." class="outline-none text-sm w-56" />
+                </div>
+              
+                <div class="flex items-center gap-2">
+                  <select class="rounded-lg border-slate-300 focus:border-primary focus:ring-primary text-sm">
+                    <option>All Roles</option>
+                    <option>Administrator</option>
+                    <option>Manager</option>
+                    <option>Technician</option>
+                    <option>Read Only</option>
+                  </select>
+                  <select class="rounded-lg border-slate-300 focus:border-primary focus:ring-primary text-sm">
+                    <option>All Departments</option>
+                    <option>IT</option>
+                    <option>Finance</option>
+                    <option>Operations</option>
+                    <option>HR</option>
+                  </select>
+                  <select class="rounded-lg border-slate-300 focus:border-primary focus:ring-primary text-sm">
+                    <option>All Status</option>
+                    <option>Active</option>
+                    <option>Inactive</option>
+                  </select>
+                </div>
+              </div>
+            
+              <!-- Users Table -->
+              <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-slate-200">
+                  <thead class="bg-slate-50">
+                    <tr>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                        <div class="flex items-center">
+                          <input type="checkbox" class="rounded text-primary focus:ring-primary mr-2" />
+                          User
+                        </div>
+                      </th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Email</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Role</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Department</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Last Login</th>
+                      <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-slate-200">
+                    <tr class="hover:bg-slate-50 transition-colors">
+                      <td class="px-4 py-3">
+                        <div class="flex items-center">
+                          <input type="checkbox" class="rounded text-primary focus:ring-primary mr-2" />
+                          <div class="flex items-center gap-3">
+                            <div class="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-medium">
+                              JS
+                            </div>
+                            <span class="font-medium">John Smith</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3 text-sm">john.smith@example.com</td>
+                      <td class="px-4 py-3 text-sm">
+                        <span class="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">
+                          Administrator
+                        </span>
+                      </td>
+                      <td class="px-4 py-3 text-sm">IT</td>
+                      <td class="px-4 py-3 text-sm">
+                        <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                          <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                          Active
+                        </span>
+                      </td>
+                      <td class="px-4 py-3 text-sm">Aug 18, 2025 14:32</td>
+                      <td class="px-4 py-3 text-sm text-right">
+                        <div class="flex items-center justify-end gap-2">
+                          <button class="p-1 rounded hover:bg-slate-100">
+                            <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                          <button class="p-1 rounded hover:bg-slate-100">
+                            <i data-lucide="more-vertical" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition-colors">
+                      <td class="px-4 py-3">
+                        <div class="flex items-center">
+                          <input type="checkbox" class="rounded text-primary focus:ring-primary mr-2" />
+                          <div class="flex items-center gap-3">
+                            <div class="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-medium">
+                              SJ
+                            </div>
+                            <span class="font-medium">Sarah Johnson</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3 text-sm">sarah.johnson@example.com</td>
+                      <td class="px-4 py-3 text-sm">
+                        <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                          Manager
+                        </span>
+                      </td>
+                      <td class="px-4 py-3 text-sm">Finance</td>
+                      <td class="px-4 py-3 text-sm">
+                        <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                          <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                          Active
+                        </span>
+                      </td>
+                      <td class="px-4 py-3 text-sm">Aug 17, 2025 09:15</td>
+                      <td class="px-4 py-3 text-sm text-right">
+                        <div class="flex items-center justify-end gap-2">
+                          <button class="p-1 rounded hover:bg-slate-100">
+                            <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                          <button class="p-1 rounded hover:bg-slate-100">
+                            <i data-lucide="more-vertical" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition-colors">
+                      <td class="px-4 py-3">
+                        <div class="flex items-center">
+                          <input type="checkbox" class="rounded text-primary focus:ring-primary mr-2" />
+                          <div class="flex items-center gap-3">
+                            <div class="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-medium">
+                              MW
+                            </div>
+                            <span class="font-medium">Mike Williams</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3 text-sm">mike.williams@example.com</td>
+                      <td class="px-4 py-3 text-sm">
+                        <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
+                          Technician
+                        </span>
+                      </td>
+                      <td class="px-4 py-3 text-sm">Operations</td>
+                      <td class="px-4 py-3 text-sm">
+                        <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                          <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                          Active
+                        </span>
+                      </td>
+                      <td class="px-4 py-3 text-sm">Aug 16, 2025 11:42</td>
+                      <td class="px-4 py-3 text-sm text-right">
+                        <div class="flex items-center justify-end gap-2">
+                          <button class="p-1 rounded hover:bg-slate-100">
+                            <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                          <button class="p-1 rounded hover:bg-slate-100">
+                            <i data-lucide="more-vertical" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition-colors">
+                      <td class="px-4 py-3">
+                        <div class="flex items-center">
+                          <input type="checkbox" class="rounded text-primary focus:ring-primary mr-2" />
+                          <div class="flex items-center gap-3">
+                            <div class="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-medium">
+                              LB
+                            </div>
+                            <span class="font-medium">Lisa Brown</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-4 py-3 text-sm">lisa.brown@example.com</td>
+                      <td class="px-4 py-3 text-sm">
+                        <span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
+                          Read Only
+                        </span>
+                      </td>
+                      <td class="px-4 py-3 text-sm">HR</td>
+                      <td class="px-4 py-3 text-sm">
+                        <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
+                          <span class="h-1.5 w-1.5 rounded-full bg-slate-500"></span>
+                          Inactive
+                        </span>
+                      </td>
+                      <td class="px-4 py-3 text-sm">Jul 28, 2025 15:20</td>
+                      <td class="px-4 py-3 text-sm text-right">
+                        <div class="flex items-center justify-end gap-2">
+                          <button class="p-1 rounded hover:bg-slate-100">
+                            <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                          <button class="p-1 rounded hover:bg-slate-100">
+                            <i data-lucide="more-vertical" class="w-4 h-4 text-slate-500"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            
+              <div class="px-4 py-3 bg-slate-50 border-t border-slate-200 mt-4 flex items-center justify-between">
+                <div class="text-sm text-slate-500">Showing 4 of 24 users</div>
+                <div class="flex items-center gap-1">
+                  <button class="p-2 rounded hover:bg-slate-200 disabled:opacity-50" disabled>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                  </button>
+                  <button class="h-8 w-8 rounded bg-primary text-white flex items-center justify-center">1</button>
+                  <button class="h-8 w-8 rounded hover:bg-slate-200 flex items-center justify-center">2</button>
+                  <button class="h-8 w-8 rounded hover:bg-slate-200 flex items-center justify-center">3</button>
+                  <button class="p-2 rounded hover:bg-slate-200">
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <!-- Role Management -->
+          <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="font-semibold text-primary-800 flex items-center gap-2">
+                <i data-lucide="shield" class="w-5 h-5"></i>
+                Role Management
+              </h3>
+              <button class="btn">
+                <i data-lucide="plus" class="w-4 h-4 mr-1"></i>
+                Add Role
+              </button>
+            </div>
+          
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-slate-200">
+                <thead class="bg-slate-50">
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Role Name</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Description</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Users</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Last Modified</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-slate-200">
+                  <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <span class="font-medium text-primary-700 hover:text-primary-800">Administrator</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">Full system access with all permissions</td>
+                    <td class="px-4 py-3 text-sm">3</td>
+                    <td class="px-4 py-3 text-sm">Aug 10, 2025</td>
+                    <td class="px-4 py-3 text-sm text-right">
+                      <div class="flex items-center justify-end gap-2">
+                        <button class="p-1 rounded hover:bg-slate-100">
+                          <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                        <button class="p-1 rounded hover:bg-slate-100">
+                          <i data-lucide="shield" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <span class="font-medium text-primary-700 hover:text-primary-800">Manager</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">Department-level access with approval rights</td>
+                    <td class="px-4 py-3 text-sm">8</td>
+                    <td class="px-4 py-3 text-sm">Aug 5, 2025</td>
+                    <td class="px-4 py-3 text-sm text-right">
+                      <div class="flex items-center justify-end gap-2">
+                        <button class="p-1 rounded hover:bg-slate-100">
+                          <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                        <button class="p-1 rounded hover:bg-slate-100">
+                          <i data-lucide="shield" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <span class="font-medium text-primary-700 hover:text-primary-800">Technician</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">Maintenance and verification access</td>
+                    <td class="px-4 py-3 text-sm">12</td>
+                    <td class="px-4 py-3 text-sm">Jul 28, 2025</td>
+                    <td class="px-4 py-3 text-sm text-right">
+                      <div class="flex items-center justify-end gap-2">
+                        <button class="p-1 rounded hover:bg-slate-100">
+                          <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                        <button class="p-1 rounded hover:bg-slate-100">
+                          <i data-lucide="shield" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <span class="font-medium text-primary-700 hover:text-primary-800">Read Only</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">View-only access with no edit permissions</td>
+                    <td class="px-4 py-3 text-sm">5</td>
+                    <td class="px-4 py-3 text-sm">Jul 15, 2025</td>
+                    <td class="px-4 py-3 text-sm text-right">
+                      <div class="flex items-center justify-end gap-2">
+                        <button class="p-1 rounded hover:bg-slate-100">
+                          <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                        <button class="p-1 rounded hover:bg-slate-100">
+                          <i data-lucide="shield" class="w-4 h-4 text-slate-500"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        
+          <!-- System Information -->
+          <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-soft">
+            <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+              <i data-lucide="info" class="w-5 h-5"></i>
+              System Information
+            </h3>
+          
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <div class="space-y-3">
+                  <div class="flex justify-between py-2 border-b border-slate-100">
+                    <div class="text-sm font-medium text-slate-500">Version</div>
+                    <div class="text-sm">Assets Management v2.5.1</div>
+                  </div>
+                  <div class="flex justify-between py-2 border-b border-slate-100">
+                    <div class="text-sm font-medium text-slate-500">Last Updated</div>
+                    <div class="text-sm">August 18, 2025</div>
+                  </div>
+                  <div class="flex justify-between py-2 border-b border-slate-100">
+                    <div class="text-sm font-medium text-slate-500">Database Size</div>
+                    <div class="text-sm">1.2 GB</div>
+                  </div>
+                  <div class="flex justify-between py-2 border-b border-slate-100">
+                    <div class="text-sm font-medium text-slate-500">Total Assets</div>
+                    <div class="text-sm">1,248</div>
+                  </div>
+                  <div class="flex justify-between py-2">
+                    <div class="text-sm font-medium text-slate-500">Active Users</div>
+                    <div class="text-sm">28</div>
+                  </div>
+                </div>
+              </div>
+            
+              <div>
+                <div class="space-y-3">
+                  <div class="flex justify-between py-2 border-b border-slate-100">
+                    <div class="text-sm font-medium text-slate-500">License Type</div>
+                    <div class="text-sm">Enterprise</div>
+                  </div>
+                  <div class="flex justify-between py-2 border-b border-slate-100">
+                    <div class="text-sm font-medium text-slate-500">License Expires</div>
+                    <div class="text-sm">December 31, 2025</div>
+                  </div>
+                  <div class="flex justify-between py-2 border-b border-slate-100">
+                    <div class="text-sm font-medium text-slate-500">Support Plan</div>
+                    <div class="text-sm">Premium</div>
+                  </div>
+                  <div class="flex justify-between py-2 border-b border-slate-100">
+                    <div class="text-sm font-medium text-slate-500">Last Backup</div>
+                    <div class="text-sm">August 18, 2025 02:00 AM</div>
+                  </div>
+                  <div class="flex justify-between py-2">
+                    <div class="text-sm font-medium text-slate-500">Server Status</div>
+                    <div class="text-sm flex items-center">
+                      <span class="h-2 w-2 rounded-full bg-green-500 mr-2"></span>
+                      Operational
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <div class="mt-6 flex justify-end gap-2">
+              <button class="btn">
+                <i data-lucide="refresh-cw" class="w-4 h-4 mr-1"></i>
+                Check for Updates
+              </button>
+              <button class="btn">
+                <i data-lucide="database" class="w-4 h-4 mr-1"></i>
+                Backup Now
+              </button>
+            </div>
+          </div>
+        </div>
+      `),
 
   // Lookups
   '#/lookups/categories': () => Page('Lookups — Categories & Classes', placeholder('CRUD for categories & classes.')),
