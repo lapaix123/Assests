@@ -1092,6 +1092,34 @@ const routes = {
               </div>
             </div>
           </div>
+          
+          <div class="mt-6">
+            <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+              <i data-lucide="activity" class="w-4 h-4"></i> Recent Activity
+            </h3>
+            <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-soft">
+              <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <div class="bg-blue-50 text-blue-700 p-2 rounded-lg">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <div class="font-medium">Maintenance Completed</div>
+                    <div class="text-xs text-slate-500 mt-1">Aug 10, 2023</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="bg-amber-50 text-amber-700 p-2 rounded-lg">
+                    <i data-lucide="user-check" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <div class="font-medium">Assigned to John Smith</div>
+                    <div class="text-xs text-slate-500 mt-1">Jun 15, 2023</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         
         <div>
@@ -1151,34 +1179,6 @@ const routes = {
                 >
                   <i data-lucide="printer" class="w-4 h-4"></i> Print Barcode
                 </button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mt-6">
-            <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
-              <i data-lucide="activity" class="w-4 h-4"></i> Recent Activity
-            </h3>
-            <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-soft">
-              <div class="space-y-3">
-                <div class="flex items-start gap-3">
-                  <div class="bg-blue-50 text-blue-700 p-2 rounded-lg">
-                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
-                  </div>
-                  <div>
-                    <div class="font-medium">Maintenance Completed</div>
-                    <div class="text-xs text-slate-500 mt-1">Aug 10, 2023</div>
-                  </div>
-                </div>
-                <div class="flex items-start gap-3">
-                  <div class="bg-amber-50 text-amber-700 p-2 rounded-lg">
-                    <i data-lucide="user-check" class="w-4 h-4"></i>
-                  </div>
-                  <div>
-                    <div class="font-medium">Assigned to John Smith</div>
-                    <div class="text-xs text-slate-500 mt-1">Jun 15, 2023</div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
