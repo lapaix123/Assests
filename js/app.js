@@ -924,10 +924,10 @@ const routes = {
       ${selectField('Verification Status', ['Verified', 'Not Verified'])}
       <div class="md:col-span-2">
         <label class="block">
-          <span class="text-sm text-slate-600">QR/Barcode Image</span>
+          <span class="text-sm text-slate-600">Barcode Image</span>
           <div class="mt-1 border border-slate-300 rounded-xl p-4 text-center">
-            <i data-lucide="qr-code" class="mx-auto h-24 w-24 text-slate-400"></i>
-            <div class="mt-2 text-sm text-slate-500">QR code will be generated after saving</div>
+            <i data-lucide="barcode" class="mx-auto h-24 w-24 text-slate-400"></i>
+            <div class="mt-2 text-sm text-slate-500">Barcode will be generated after saving</div>
           </div>
         </label>
       </div>
@@ -951,11 +951,17 @@ const routes = {
             </div>
           </div>
           <div class="flex items-center gap-3 bg-slate-50 px-4 py-3 rounded-xl shadow-sm flex-grow">
-            <i data-lucide="scan" class="text-slate-500 w-6 h-6 flex-shrink-0"></i>
-            <div>
-              <div class="text-xs font-medium text-slate-500">QR Code</div>
-              <div class="text-lg font-bold text-primary hover:underline cursor-pointer">View / Print</div>
-            </div>
+  <i data-lucide="barcode" class="text-slate-500 w-6 h-6 flex-shrink-0"></i>
+  <div>
+    <div class="text-xs font-medium text-slate-500">Barcode</div>
+    <button
+      class="text-lg font-bold text-primary hover:underline cursor-pointer"
+      data-open-label="barcode"
+      data-label-value="AST-2023-0042"
+    >View / Print</button>
+  </div>
+</div>
+
           </div>
         </div>
         <div class="flex-grow hidden sm:block"></div>
@@ -968,6 +974,45 @@ const routes = {
           </button>
         </div>
       </div>
+      <div id="labelModal" class="fixed inset-0 z-[100] hidden">
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="absolute inset-0 flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl border border-slate-200">
+      <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
+        <h4 id="labelTitle" class="font-semibold text-slate-800">Print Barcode</h4>
+        <button id="closeLabelModal" class="p-2 rounded hover:bg-slate-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="px-5 py-4 space-y-4">
+        <div class="grid grid-cols-2 gap-3">
+          <label class="text-sm">
+            <span class="block text-slate-600 mb-1">Copies</span>
+            <input id="labelCopies" type="number" min="1" value="1"
+                   class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring"
+            />
+          </label>
+          <label class="text-sm inline-flex items-center gap-2 mt-6">
+            <input id="includeText" type="checkbox" checked class="rounded" />
+            <span class="text-slate-700">Show text under barcode</span>
+          </label>
+        </div>
+
+        <div id="labelPreviewWrap" class="flex flex-col items-center">
+          <!-- Barcode preview -->
+          <svg id="barcodeSvg"></svg>
+          <div id="barcodeText" class="text-sm text-slate-600 mt-2"></div>
+        </div>
+      </div>
+
+      <div class="px-5 py-4 border-t border-slate-200 flex items-center justify-end gap-2">
+        <button id="printLabelBtn" class="btn-primary px-4 py-2 rounded-lg">Print</button>
+      </div>
+    </div>
+  </div>
+</div>
+
       
       <div class="border-b border-slate-200 mb-6 overflow-x-auto scrollbar-thin">
         <div class="flex -mb-px min-w-max">
@@ -1087,6 +1132,25 @@ const routes = {
                     <div class="text-sm text-slate-500">IT Manager</div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6">
+            <h3 class="font-semibold mb-4 text-primary-800 flex items-center gap-2">
+              <i data-lucide="barcode" class="w-4 h-4"></i> Asset Barcode
+            </h3>
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-soft">
+              <div class="flex flex-col items-center justify-center py-4">
+                <svg id="assetDetailBarcode" class="mb-3"></svg>
+                <div class="text-sm font-medium text-slate-600">AST-2023-0042</div>
+                <button 
+                  class="btn mt-4 text-sm"
+                  data-open-label="barcode"
+                  data-label-value="AST-2023-0042"
+                >
+                  <i data-lucide="printer" class="w-4 h-4"></i> Print Barcode
+                </button>
               </div>
             </div>
           </div>
@@ -4955,8 +5019,312 @@ function activateNav(route) {
     const hash = location.hash || '#/dashboard';
     (routes[hash] || routes['#/dashboard'])();
     activateNav(hash);
+    
+    // Initialize barcodes after route render
+    setTimeout(() => {
+      initializePageBarcodes();
+    }, 150);
   }
   window.addEventListener('hashchange', renderRoute);
   renderRoute();
   refreshIcons();
 })();
+
+// Function to initialize barcodes on the page
+function initializePageBarcodes() {
+  if (!window.JsBarcode) {
+    console.warn('JsBarcode library not loaded yet');
+    return;
+  }
+  
+  // Generate barcode for asset detail page if it exists
+  const assetDetailBarcode = document.getElementById('assetDetailBarcode');
+  if (assetDetailBarcode) {
+    try {
+      JsBarcode(assetDetailBarcode, 'AST-2023-0042', {
+        format: 'CODE128',
+        lineColor: '#000',
+        width: 2,
+        height: 50,
+        displayValue: false,
+        margin: 10
+      });
+    } catch (error) {
+      console.error('Error generating barcode:', error);
+    }
+  }
+  
+  // Refresh icons after barcode generation
+  if (window.lucide && window.lucide.createIcons) {
+    window.lucide.createIcons();
+  }
+}
+
+
+  (() => {
+  let currentLabelValue = null;
+
+  // Open modal for barcode
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-open-label]');
+    if (!btn) return;
+
+    const type = btn.dataset.openLabel;
+    const value = btn.dataset.labelValue || '';
+    if (!value) return;
+
+    if (type === 'barcode') {
+      currentLabelValue = value;
+      openLabelModal('barcode', value);
+    }
+  });
+
+  // Modal controls - wait for DOM to be ready
+  function getModalElements() {
+    return {
+      modal: document.getElementById('labelModal'),
+      closeBtn: document.getElementById('closeLabelModal'),
+      copiesEl: document.getElementById('labelCopies'),
+      includeTextEl: document.getElementById('includeText'),
+      titleEl: document.getElementById('labelTitle'),
+      svgEl: document.getElementById('barcodeSvg'),
+      textEl: document.getElementById('barcodeText'),
+      printBtn: document.getElementById('printLabelBtn')
+    };
+  }
+  
+  const elements = getModalElements();
+  const modal = elements.modal;
+  const closeBtn = elements.closeBtn;
+  const copiesEl = elements.copiesEl;
+  const includeTextEl = elements.includeTextEl;
+  const titleEl = elements.titleEl;
+  const svgEl = elements.svgEl;
+  const textEl = elements.textEl;
+  const printBtn = elements.printBtn;
+  
+  if (!modal || !closeBtn || !printBtn) {
+    console.warn('Modal elements not found on page load');
+  }
+
+  function openLabelModal(kind, value) {
+    if (!titleEl || !modal) {
+      console.error('Modal elements not available');
+      return;
+    }
+    titleEl.textContent = kind === 'barcode' ? 'Print Barcode' : 'Print Code';
+    renderBarcode(value);
+    modal.classList.remove('hidden');
+    // Refresh icons in modal
+    setTimeout(() => {
+      if (window.lucide && window.lucide.createIcons) {
+        window.lucide.createIcons();
+      }
+    }, 50);
+  }
+
+  function closeLabelModal() {
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeLabelModal);
+  }
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeLabelModal();
+    });
+  }
+
+  function renderBarcode(value) {
+    if (!window.JsBarcode) {
+      console.error('JsBarcode not loaded');
+      alert('Error: Barcode library failed to load. Please refresh the page.');
+      return;
+    }
+    
+    if (!svgEl || !textEl || !includeTextEl) {
+      console.error('Barcode elements not available');
+      return;
+    }
+    
+    try {
+      // Clear previous barcode
+      while (svgEl.firstChild) {
+        svgEl.removeChild(svgEl.firstChild);
+      }
+      
+      // Create new barcode
+      JsBarcode(svgEl, value, {
+        format: 'CODE128',
+        lineColor: '#000',
+        width: 2,         // bar width (px)
+        height: 60,       // bar height (px)
+        displayValue: includeTextEl.checked,
+        fontSize: 14,
+        margin: 10,
+        valid: function(valid) {
+          if (!valid) {
+            console.error('Invalid barcode value');
+            alert('Error: Invalid barcode value');
+          }
+        }
+      });
+      
+      // Update text display
+      textEl.textContent = includeTextEl.checked ? '' : value;
+    } catch (error) {
+      console.error('Error generating barcode:', error);
+      alert('Error generating barcode. Please try again.');
+    }
+  }
+
+  if (includeTextEl) {
+    includeTextEl.addEventListener('change', () => {
+      if (currentLabelValue) renderBarcode(currentLabelValue);
+    });
+  }
+
+  if (printBtn) {
+    printBtn.addEventListener('click', () => {
+      if (!copiesEl || !includeTextEl) {
+        console.error('Form elements not available');
+        return;
+      }
+      
+      try {
+        const copies = Math.max(1, Math.min(100, parseInt(copiesEl.value || '1', 10)));
+        const showText = includeTextEl.checked;
+        const val = currentLabelValue;
+      
+      // Create a temporary SVG for printing
+      const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      JsBarcode(tempSvg, val, {
+        format: 'CODE128',
+        lineColor: '#000',
+        width: 2,
+        height: 60,
+        displayValue: showText,
+        fontSize: 14,
+        margin: 10
+      });
+      
+      const svgMarkup = tempSvg.outerHTML;
+      const printWindow = window.open('', '_blank', 'width=900,height=700');
+      
+      if (!printWindow) {
+        alert('Popup was blocked. Please allow popups for this site to print barcodes.');
+        return;
+      }
+      
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Barcode Labels</title>
+            <style>
+              @page { 
+                size: A4; 
+                margin: 10mm;
+              }
+              body { 
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                margin: 0;
+                padding: 10mm;
+              }
+              .grid { 
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 5mm;
+                width: 100%;
+              }
+              .label {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                padding: 5mm;
+              }
+              .label svg { 
+                max-width: 100%;
+                height: auto;
+              }
+              .barcode-text { 
+                margin-top: 2mm;
+                font-size: 12px;
+                text-align: center;
+                word-break: break-all;
+              }
+              @media print {
+                body {
+                  padding: 0;
+                }
+                .no-print {
+                  display: none;
+                }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="no-print" style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+              <button onclick="window.print()" style="padding: 8px 16px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Print Barcodes
+              </button>
+              <button onclick="window.close()" style="margin-left: 10px; padding: 8px 16px; background: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Close
+              </button>
+            </div>
+            <div class="grid">
+              ${Array.from({ length: copies }).map(() => `
+                <div class="label">
+                  ${svgMarkup}
+                  ${!showText ? `<div class="barcode-text">${val}</div>` : ''}
+                </div>
+              `).join('')}
+            </div>
+            <script>
+              // Focus the window to ensure printing works in all browsers
+              window.focus();
+              
+              // Auto-print if not already printing
+              let printed = false;
+              const printHandler = () => {
+                if (!printed) {
+                  window.print();
+                  printed = true;
+                }
+              };
+              
+              // Try to print automatically after a short delay
+              const timeoutId = setTimeout(printHandler, 500);
+              
+              // Also support manual print button
+              window.addEventListener('beforeprint', () => {
+                clearTimeout(timeoutId);
+                printed = true;
+              });
+              
+              // Close the window after printing if possible
+              window.onafterprint = () => {
+                // Don't auto-close as it might be annoying for users
+                // window.close();
+              };
+            <\/script>
+          </body>
+        </html>
+      `);
+      
+      printWindow.document.close();
+      } catch (error) {
+        console.error('Error printing barcodes:', error);
+        alert('Error generating print preview. Please try again.');
+      }
+    });
+  }
+})();
+
+
